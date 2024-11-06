@@ -5,6 +5,7 @@ import Pages from "./components/Pages";
 
 export default function Home() {
   const [isActive, setIsActive] = useState(true);
+
   window.addEventListener("wheel", function (handleScroll) {
     const scroll = handleScroll.deltaY;
     // console.log(scroll);
@@ -28,31 +29,46 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col items-center justify-center pt-[15vh]">
-        <h1 className="text-9xl text-white font-bold">Harvest Hub</h1>
+        <h1
+          className="text-9xl text-white font-bold"
+          style={{ textShadow: "0px 0px 10px #000" }}
+        >
+          Harvest Hub
+        </h1>
       </div>
 
       <Pages
-        className={`opacity-90 ${isActive ? "translate-y-[40vh] scale-[50%]" : "mt-20 mb-8 translate-y-0 scale-100"}`}
+        className=""
+        transTransi={`opacity-90 duration-[600ms] ${isActive ? "translate-y-[40vh] delay-[200ms]" : "translate-y-[-4vh] translate-x-[-4vw] scale-100"}`}
+        scaleTransi={`duration-[500ms] delay-50 ${isActive ? "scale-[50%]" : "scale-100 delay-[90ms]"}`}
         color="bg-violet-400"
       />
 
       <Pages
-        className={`opacity-95 ${isActive ? "translate-y-[44vh] scale-[53%]" : "mt-20 mb-8 translate-y-0 scale-100"}`}
+        className=""
+        transTransi={`opacity-95 duration-[500ms]  ${isActive ? "translate-y-[44vh] delay-[200ms]" : "translate-y-[-3vh] translate-x-[-3vw] scale-100"}`}
+        scaleTransi={`duration-[500ms] delay-50 ${isActive ? "scale-[53%]" : "scale-100 delay-[90ms]"}`}
         color="bg-red-400"
       />
 
       <Pages
-        className={`opacity-95 ${isActive ? "translate-y-[48vh] scale-[56%]" : "mt-20 mb-8 translate-y-0 scale-100"}`}
+        className=""
+        transTransi={`opacity-95 duration-[400ms] ${isActive ? "translate-y-[48vh] delay-[200ms]" : "translate-y-[-2vh] translate-x-[-2vw] scale-100"}`}
+        scaleTransi={`duration-[500ms] delay-50 ${isActive ? "scale-[56%]" : "scale-100 delay-[90ms]"}`}
         color="bg-orange-400"
       />
 
       <Pages
-        className={`${isActive ? "translate-y-[52vh] scale-[59%]" : "mt-20 mb-8 translate-y-0 scale-100"}`}
+        className=""
+        transTransi={`duration-[300ms] ${isActive ? "translate-y-[52vh] delay-[200ms]" : "translate-y-[-1vh] translate-x-[-1vw] scale-100"}`}
+        scaleTransi={`duration-[500ms] delay-30 ${isActive ? "scale-[59%]" : "scale-100 delay-[90ms]"}`}
         color="bg-yellow-400"
       />
 
       <Pages
-        className={`${isActive ? "translate-y-[56vh] scale-[62%]" : "mt-20 mb-8 translate-y-0 scale-100"}`}
+        className=""
+        transTransi={`duration-[200ms] ${isActive ? "translate-y-[56vh] delay-[200ms]" : "translate-y-0"}`}
+        scaleTransi={`duration-[500ms] delay-10 ${isActive ? "scale-[62%]" : "scale-100 delay-[85ms]"}`}
         color="bg-green-400"
       />
     </div>
