@@ -1,20 +1,52 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Pages from "./components/Pages";
 
 export default function Home() {
-  const [isActive, setIsActive] = useState(true);
+  const scrollLocked = useRef(false);
+  const [activePage, setActivePage] = useState(0);
+  const [isHomeActive, setIsHomeActive] = useState(true);
 
-  window.addEventListener("wheel", function (handleScroll) {
+  const handleScroll = (handleScroll: WheelEvent) => {
     const scroll = handleScroll.deltaY;
-    // console.log(scroll);
-    if (scroll > 15) {
-      setIsActive(false);
-    } else if (scroll < -15) {
-      setIsActive(true);
+
+    if (!scrollLocked.current) {
+      scrollLocked.current = true;
+
+      if (scroll > 15) {
+        setActivePage((prevPage) => Math.min(prevPage + 1, 5));
+      } else if (scroll < -15) {
+        setActivePage((prevPage) => Math.max(prevPage - 1, 0));
+      }
+
+      // console.log(activePage);
+      setTimeout(() => (scrollLocked.current = false), 300);
     }
-  });
+  };
+
+  useEffect(() => {
+    window.addEventListener("wheel", handleScroll);
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("wheel", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    // console.log(activePage);
+    if (activePage === 0) {
+      setIsHomeActive(true);
+    } else if (activePage === 1) {
+      setIsHomeActive(false);
+    } else {
+      setIsHomeActive(true);
+      console.log(isHomeActive);
+      setTimeout(() => {
+        setIsHomeActive(false);
+      }, 650);
+    }
+  }, [activePage]);
 
   return (
     <div className="flex flex-col m-0 p-0 w-screen items-center overflow-hidden">
@@ -39,36 +71,37 @@ export default function Home() {
 
       <Pages
         className=""
-        transTransi={`opacity-90 duration-[600ms] ${isActive ? "translate-y-[40vh] delay-[200ms]" : "translate-y-[-4vh] translate-x-[-4vw] scale-100"}`}
-        scaleTransi={`duration-[500ms] delay-50 ${isActive ? "scale-[50%]" : "scale-100 delay-[90ms]"}`}
+        transTransi={`opacity-90 duration-[500ms] ${!(activePage === 1) ? "translate-y-[70vh] delay-[200ms]" : `!translate-y-0 ${isHomeActive ? "" : ""}`} ${!isHomeActive && activePage !== 1 ? "!translate-y-[90vh]" : "duration-[300ms]"}`}
+        scaleTransi={`duration-[500ms] delay-50 ${!(activePage === 1) ? "scale-[50%]" : "scale-100 delay-[200ms]"}`}
+        // style={{ transition: "z-index 0.5s step-end, opacity 0.5s linear" }}
         color="bg-violet-400"
       />
 
       <Pages
         className=""
-        transTransi={`opacity-95 duration-[500ms]  ${isActive ? "translate-y-[44vh] delay-[200ms]" : "translate-y-[-3vh] translate-x-[-3vw] scale-100"}`}
-        scaleTransi={`duration-[500ms] delay-50 ${isActive ? "scale-[53%]" : "scale-100 delay-[90ms]"}`}
+        transTransi={`opacity-95 duration-[400ms]  ${!(activePage === 2) ? "translate-y-[74vh] delay-[200ms]" : "!duration-[600ms] !translate-y-0 delay-[600ms]"} ${!isHomeActive ? "!translate-y-[91vh]" : "duration-[350ms]"}`}
+        scaleTransi={`duration-[500ms] delay-50 ${!(activePage === 2) ? "scale-[53%]" : "scale-100 delay-[800ms]"}`}
         color="bg-red-400"
       />
 
       <Pages
         className=""
-        transTransi={`opacity-95 duration-[400ms] ${isActive ? "translate-y-[48vh] delay-[200ms]" : "translate-y-[-2vh] translate-x-[-2vw] scale-100"}`}
-        scaleTransi={`duration-[500ms] delay-50 ${isActive ? "scale-[56%]" : "scale-100 delay-[90ms]"}`}
+        transTransi={`opacity-95 duration-[300ms] ${!(activePage === 3) ? "translate-y-[78vh] delay-[200ms]" : "!duration-[600ms] !translate-y-0 delay-[350ms]"} ${!isHomeActive && activePage !== 3 ? "!translate-y-[92vh]" : "!duration-[400ms]"}`}
+        scaleTransi={`duration-[500ms] delay-50 ${!(activePage === 3) ? "scale-[56%]" : "scale-100 delay-[550ms]"}`}
         color="bg-orange-400"
       />
 
       <Pages
         className=""
-        transTransi={`duration-[300ms] ${isActive ? "translate-y-[52vh] delay-[200ms]" : "translate-y-[-1vh] translate-x-[-1vw] scale-100"}`}
-        scaleTransi={`duration-[500ms] delay-30 ${isActive ? "scale-[59%]" : "scale-100 delay-[90ms]"}`}
+        transTransi={`duration-[200ms] ${!(activePage === 4) ? "translate-y-[82vh] delay-[200ms]" : "!duration-[600ms] !translate-y-0 delay-[350ms]"} ${!isHomeActive && activePage !== 4 ? "!translate-y-[93vh]" : "!duration-[500ms]"}`}
+        scaleTransi={`duration-[500ms] delay-30 ${!(activePage === 4) ? "scale-[59%]" : "scale-100 delay-[550ms]"}`}
         color="bg-yellow-400"
       />
 
       <Pages
         className=""
-        transTransi={`duration-[200ms] ${isActive ? "translate-y-[56vh] delay-[200ms]" : "translate-y-0"}`}
-        scaleTransi={`duration-[500ms] delay-10 ${isActive ? "scale-[62%]" : "scale-100 delay-[85ms]"}`}
+        transTransi={`duration-[100ms] ${!(activePage === 5) ? "translate-y-[86vh] delay-[200ms]" : "!duration-[600ms] !translate-y-0 delay-[350ms]"} ${!isHomeActive && activePage !== 5 ? "!translate-y-[94vh]" : "!duration-[600ms]"}`}
+        scaleTransi={`duration-[500ms] delay-10 ${!(activePage === 5) ? "scale-[62%]" : "scale-100 delay-[550ms]"}`}
         color="bg-green-400"
       />
     </div>

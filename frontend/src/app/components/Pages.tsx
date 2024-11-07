@@ -13,11 +13,11 @@ export default function Pages({
 }) {
   return (
     <div
-      className={`${className} ${transTransi} rounded-3xl transform transition-transform absolute mt-20 mb-8`}
+      className={`${className} ${transTransi} rounded-3xl transform transition-transform absolute mt-7 mb-8`}
       style={style}
     >
       <div
-        className={`${scaleTransi} ${color} shadow-[0px_0px_50px_-20px_rgba(0,0,0,0.45)] shadow-black inset-0 rounded-3xl pointer-events-none transform transition-transform h-[87vh] w-[90vw] flex flex-col items-center justify-center`}
+        className={`${scaleTransi} ${color} shadow-[0px_0px_50px_-20px_rgba(0,0,0,0.45)] shadow-black inset-0 rounded-3xl pointer-events-none transform transition-transform h-[87vh] w-[90vw] flex flex-col items-center justify-center origin-top`}
       ></div>
     </div>
   );
