@@ -13,7 +13,7 @@ export default function Pages({
 }) {
   return (
     <div
-      className={`${className} ${transTransi} rounded-3xl transform transition-transform absolute mt-7 mb-8`}
+      className={`${className} ${transTransi} rounded-3xl transform transition-transform absolute mt-7 mb-8 pointer-events-auto`}
       style={style}
     >
       <div
