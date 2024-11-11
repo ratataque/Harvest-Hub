@@ -20,3 +20,99 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   overflow: hidden;
 }
+
+/* Remember to change all the affected value if you want ot resize the demo window div !!! */
+.macOS-window {
+  /* Do not change, this part has already matched the apple window style */
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  border: 0.8px solid rgb(180, 180, 180);
+  box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  overflow: hidden;
+
+  /* This part is up to you! */
+  height: 400px;
+  width: 560px;
+}
+
+.macOS-window-titlebar {
+  /* Do not change, this part has already matched the apple window style */
+  height: 28px;
+  user-select: none;
+  width: 100%;
+
+  /* This part is optional */
+  /* box-sizing: border-box;
+    border-bottom: 0.8px solid rgb(180, 180, 180); */
+}
+
+.macOS-window-titlebar .button {
+  /* Do not change, this part has already matched the apple window style */
+  border-radius: 7px;
+  background-color: rgb(222, 222, 222);
+  box-sizing: border-box;
+  display: inline-block;
+  height: 11.8px;
+  min-width: 11.8px;
+  min-height: 11.8px;
+  margin-top: 8px;
+  margin-left: 8px;
+  user-select: none;
+  width: 11.8px;
+}
+
+.button:nth-of-type(1) {
+  /* Do not change, this part has already matched the apple window style */
+  background-color: rgb(236, 106, 94);
+  border: 0.75px solid rgb(222, 95, 84);
+}
+
+.button:nth-of-type(2) {
+  /* Do not change, this part has already matched the apple window style */
+  margin-left: 3px;
+  background-color: rgb(244, 191, 79);
+  border: 0.75px solid rgb(231, 178, 75);
+}
+
+.button:nth-of-type(3) {
+  /* Do not change, this part has already matched the apple window style */
+  margin-left: 3px;
+  background-color: rgb(97, 197, 84);
+  border: 0.75px solid rgb(94, 185, 77);
+}
+
+.macOS-window-title {
+  /* Do not change, this part has already matched the apple window style */
+  /* color: rgb(80, 80, 80); */
+  display: inline-block;
+  font-size: 13.6px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  line-height: 20px;
+  padding: 0;
+  text-align: center;
+
+  /* This part is up to you! */
+  margin-left: calc(((100% - 200px) / 2) - 65px);
+  width: 200px;
+}
+
+.macOS-window-content {
+  /* This part is up to you! */
+  color: rgb(80, 80, 80);
+  font-size: 15px;
+  height: calc(100% - 28px - 60px);
+  overflow-y: auto;
+  padding: 30px;
+}
+
+.macOS-window-content p {
+  /* This part is up to you! */
+  font-family: monaco;
+}
+
+.macOS-window-content::-webkit-scrollbar {
+  /* This part is up to you! */
+  display: none;
+}
