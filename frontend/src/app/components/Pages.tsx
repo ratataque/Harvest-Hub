@@ -14,7 +14,7 @@ export default function Pages({
   scaleTransi?: string;
   children?: React.ReactNode;
   title: { color: string; txt: string };
-  content: React.ReactNode;
+  content?: React.ReactNode;
 }) {
   return (
     <div
@@ -22,7 +22,7 @@ export default function Pages({
       style={style}
     >
       <div
-        className={`${scaleTransi} ${color} shadow-[0px_0px_50px_-20px_rgba(0,0,0,0.45)] shadow-black inset-0 rounded-3xl pointer-events-none transform transition-transform h-[87vh] w-[90vw] flex flex-col items-center origin-top p-2`}
+        className={`${scaleTransi} ${color} shadow-[0px_0px_50px_-20px_rgba(0,0,0,0.45)] shadow-black inset-0 rounded-3xl pointer-events-none transform transition-transform h-[87vh] w-[90vw] flex flex-col items-center origin-top p-2 overflow-hidden`}
       >
         <div className="macOS-window-titlebar">
           <div className="button"></div>
