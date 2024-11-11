@@ -47,7 +47,7 @@ export default function Home() {
       }
     }
 
-    if (!playerRef.current || playerRef.current?.getPlayerState() !== 1) {
+    if (playerRef.current || playerRef.current?.getPlayerState() !== 1) {
       if (event.key === "j" && currentPage.current <= 5) {
         setPageDown();
       }
@@ -194,10 +194,10 @@ export default function Home() {
       >
         <Pages
           className=""
-          transTransi={`opacity-100 duration-[460ms] ${!(activePage === 1) ? "translate-y-[70vh] delay-[200ms] " : "!translate-y-0"} ${!isHomeActive && activePage !== 1 ? "!translate-y-[90vh]" : "duration-[300ms]"}`}
+          transTransi={`duration-[460ms] ${!(activePage === 1) ? "translate-y-[70vh] delay-[200ms] " : "!translate-y-0"} ${!isHomeActive && activePage !== 1 ? "!translate-y-[90vh]" : "duration-[300ms]"}`}
           scaleTransi={`duration-[500ms] delay-50 ${!(activePage === 1) ? "scale-[50%]" : "scale-100 delay-[140ms]"}`}
           // style={{ transition: "z-index 0.5s step-end, opacity 0.5s linear" }}
-          color="bg-gray-700"
+          color="bg-gray-700/[.97]"
           title={{ color: "text-gray-300", txt: "Presentation_Global.pdf" }}
           content={<IntroView />}
         />
