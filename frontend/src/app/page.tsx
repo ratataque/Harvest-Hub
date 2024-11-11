@@ -47,7 +47,8 @@ export default function Home() {
       }
     }
 
-    if (playerRef.current || playerRef.current?.getPlayerState() !== 1) {
+    console.log(playerRef.current);
+    if (!playerRef.current || playerRef.current?.getPlayerState() !== 1) {
       if (event.key === "j" && currentPage.current <= 5) {
         setPageDown();
       }
