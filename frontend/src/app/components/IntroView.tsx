@@ -70,19 +70,8 @@ export default function IntroView() {
           width={2000}
           height={2000}
           className="w-auto h-[70%] animate-float"
-          // className="w-96 absolute bottom-[-150px] transform rotate-[-68deg] left-[-100px] z-[-1]"
-          // id="jardinier"
         />
-        <div
-          className="bottom-[120px] w-[400px] h-[30px] shadow-[0_75px_55px_rgba(0,0,0,0.95)] rounded-[50%] absolute animate-aggrandi"
-          style={
-            {
-              // background:
-              // "radial-gradient(circle, rgba(81, 139, 117, 1) 0%, rgba(30,49,63,0) 60%)",
-              // clipPath: "ellipse(100px 20px)",
-            }
-          }
-        ></div>
+        <div className="bottom-[120px] w-[400px] h-[30px] shadow-[0_75px_55px_rgba(0,0,0,0.95)] rounded-[50%] absolute animate-aggrandi" />
       </div>
 
       <Image
