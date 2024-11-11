@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Pages from "./components/Pages";
 import IntroView from "./components/IntroView";
+import GeneralView from "./components/GeneralView";
 
 export default function Home() {
   const focusRef = useRef<HTMLDivElement>(null);
@@ -208,7 +209,7 @@ export default function Home() {
           scaleTransi={`duration-[500ms] delay-50 ${!(activePage === 2) ? "scale-[53%]" : "scale-100 delay-[170ms]"}`}
           color="bg-gray-600"
           title={{ color: "text-gray-300", txt: "Presentation_Global.pdf" }}
-          // content={GeneralView()}
+          content={<GeneralView />}
         ></Pages>
 
         <Pages
