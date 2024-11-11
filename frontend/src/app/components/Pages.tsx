@@ -1,13 +1,11 @@
-import { title } from "process";
-
 export default function Pages({
   className,
   color,
   style,
   transTransi,
   scaleTransi,
-  children,
   title = { color: "", txt: "" },
+  content,
 }: {
   className?: string;
   color?: string;
@@ -16,6 +14,7 @@ export default function Pages({
   scaleTransi?: string;
   children?: React.ReactNode;
   title: { color: string; txt: string };
+  content: React.ReactNode;
 }) {
   return (
     <div
@@ -32,7 +31,7 @@ export default function Pages({
           <div className={`macOS-window-title ${title.color}`}>{title.txt}</div>
         </div>
 
-        {children}
+        {content}
       </div>
     </div>
   );

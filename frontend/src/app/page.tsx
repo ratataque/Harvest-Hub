@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Pages from "./components/Pages";
+import Image from "next/image";
 
 export default function Home() {
   const focusRef = useRef<HTMLDivElement>(null);
@@ -41,7 +42,7 @@ export default function Home() {
         returnHOme();
       }
 
-      if (event.key === " ") {
+      if (event.key === " " && currentPage.current === 0) {
         handleVideoClick();
       }
     }
@@ -198,7 +199,25 @@ export default function Home() {
           // style={{ transition: "z-index 0.5s step-end, opacity 0.5s linear" }}
           color="bg-gray-700"
           title={{ color: "text-gray-300", txt: "Presentation_Global.pdf" }}
-        ></Pages>
+        >
+          <div>
+            <Image
+              src="/images/fougere.png"
+              alt="Picture of the author"
+              width={100}
+              height={100}
+              className="w-10"
+            />
+
+            <Image
+              src="/images/logo.png"
+              alt="Picture of the author"
+              width={300}
+              height={300}
+              className="w-10"
+            />
+          </div>
+        </Pages>
 
         <Pages
           className=""
