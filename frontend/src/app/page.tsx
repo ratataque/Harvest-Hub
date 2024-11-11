@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Pages from "./components/Pages";
-import Image from "next/image";
+import IntroView from "./components/IntroView";
+import GeneralView from "./components/IntroView";
 
 export default function Home() {
   const focusRef = useRef<HTMLDivElement>(null);
@@ -199,25 +200,8 @@ export default function Home() {
           // style={{ transition: "z-index 0.5s step-end, opacity 0.5s linear" }}
           color="bg-gray-700"
           title={{ color: "text-gray-300", txt: "Presentation_Global.pdf" }}
-        >
-          <div>
-            <Image
-              src="/images/fougere.png"
-              alt="Picture of the author"
-              width={100}
-              height={100}
-              className="w-10"
-            />
-
-            <Image
-              src="/images/logo.png"
-              alt="Picture of the author"
-              width={300}
-              height={300}
-              className="w-10"
-            />
-          </div>
-        </Pages>
+          content={IntroView()}
+        />
 
         <Pages
           className=""
@@ -225,6 +209,7 @@ export default function Home() {
           scaleTransi={`duration-[500ms] delay-50 ${!(activePage === 2) ? "scale-[53%]" : "scale-100 delay-[170ms]"}`}
           color="bg-gray-600"
           title={{ color: "text-gray-300", txt: "Presentation_Global.pdf" }}
+          content={GeneralView()}
         ></Pages>
 
         <Pages
