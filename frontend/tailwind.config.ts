@@ -16,7 +16,7 @@ const config: Config = {
         "custom-inset":
           "rgba(50, 50, 93, 0.25) 0px 30px 60px -2px inset, rgba(0, 0, 0, 0.9) 0px 18px 36px -19px inset",
 
-        test: "rgba(50, 50, 93, 0.85) 0px 13px 27px -55px, rgba(0, 0, 0, 0.8) 0px 8px 16px -8px;",
+        test: "rgba(50, 50, 93, 0.85) 0px 13px 27px -55px, rgba(0, 0, 0, 0.8) 0px 8px 16px -8px",
       },
       fontFamily: {
         "sour-gummy": "Sour Gummy",
