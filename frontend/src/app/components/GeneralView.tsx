@@ -40,16 +40,16 @@ export default function GeneralView() {
     cameraPosition: [0, 1, 4.5],
     baseRotation: [-Math.PI / 2, 0, Math.PI / 2],
     basePosition: [1.9, -1.3, 1.2],
-    pivotPosition: [0, 0, 0],
     objectScale: 0.10
   });
   objects.push({
-    texture: "/models/FREE_iPhone_13_Pro_2021.mtl",
-    model: "/models/FREE_iPhone_13_Pro_2021.obj",
+    texture: "/models/iphone_11_pro_max.mtl",
+    model: "/models/iphone_11_pro_max.obj",
     container: containerRefPhone,
-    cameraPosition: [0, 1, 2.7],
+    cameraPosition: [0, 1, 8],
     baseRotation: [0, 0, 0],
-    objectScale: 0.01
+    basePosition: [0, -4, 2],
+    objectScale: 0.05
   });
 
   useEffect(() => {
@@ -87,8 +87,8 @@ export default function GeneralView() {
           scene.add(pivot);
           
           // Add pivot helper
-          // const pivotHelper = new THREE.AxesHelper(1);
-          // pivot.add(pivotHelper);
+           //const pivotHelper = new THREE.AxesHelper(1);
+           //pivot.add(pivotHelper);
           
           // Position the pivot first if specified
           if (object.pivotPosition) {
