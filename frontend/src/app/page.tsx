@@ -171,8 +171,27 @@ export default function Home() {
       </div>
       <div
         onClick={() => handleVideoClick()}
-        className={`h-[90vh] w-[100vw] absolute z-[-1] cursor-pointer bottom-0`}
-      ></div>
+        className={`text-white h-screen w-screen bg-black absolute z-[-1] cursor-pointer bottom-0 transition-opacity duration-300 flex justify-center items-center ${isVideoPlaying ? "opacity-0" : ""}`}
+        style={{
+          background:
+            "radial-gradient(circle, rgba(19,22,28,1) 26%, rgba(79,91,113,1) 91%)",
+          // "radial-gradient(circle, rgba(79,91,113,1) 26%, rgba(19,22,28,1) 91%)",
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polygon points="6 3 20 12 6 21 6 3" />
+        </svg>
+      </div>
 
       <div
         className={`pointer-events-auto flex flex-col items-center justify-center pt-[15vh] transition-opacity duration-300 opacity-100 ${isVideoPlaying ? "!opacity-0" : ""} ${DisableAll ? "hidden" : ""}`}
