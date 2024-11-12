@@ -20,6 +20,7 @@ const config: Config = {
       },
       fontFamily: {
         "sour-gummy": "Sour Gummy",
+        "santa-catalina": "Santa Catalina",
       },
       fontWeight: {
         100: "100",

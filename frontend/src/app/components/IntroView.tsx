@@ -27,8 +27,8 @@ export default function IntroView() {
               Harvest Hub est un projet de jardin connecté
             </div>
             <div className=" px-5 relative left-[-20px] w-[104%]">
-              qui combine IoT. IA. sécurité réseau, et applications web et
-              mobile pour un suivi en temps
+              qui combine IoT, IA, sécurité réseau, applications web et mobile
+              pour un suivi en temps
             </div>
             <div className=" px-5 relative left-[-23px] w-[104%]">
               réel de l'état des cultures ou des fleurs grace a
@@ -37,7 +37,7 @@ export default function IntroView() {
               de multiples capteurs. La solution comprend
             </div>
             <div className=" px-5 relative left-[-15px] w-[100%]">
-              également tautomatisation de I'arrosage et des
+              également tautomatisation de l'arrosage et des
             </div>
             <div className=" px-5 relative left-[-8px] w-[96%]">
               conseils personnalisés via IA.{" "}
@@ -55,7 +55,7 @@ export default function IntroView() {
               virtuel personnalisable avec Ies points
             </div>
             <div className=" px-5 relative left-[125px] w-[96%]">
-              obtenus. renforqant Caspect ludique et
+              obtenus. Renforgeant l'aspect ludique et
             </div>
             <div className=" px-5 relative left-[185px] w-[96%]">
               communautaire.

@@ -5,6 +5,7 @@ import Pages from "./components/Pages";
 import IntroView from "./components/IntroView";
 import QuadrillageView from "./components/QuadrillageView";
 import GeneralView from "./components/GeneralView";
+import { Youtube } from "lucide-react";
 
 export default function Home() {
   const focusRef = useRef<HTMLDivElement>(null);
@@ -168,37 +169,51 @@ export default function Home() {
         style={{ textShadow: "0px 0px 5px #000" }}
         onClick={() => returnHOme()}
       >
-        Escape
+        X
       </div>
       <div
         onClick={() => handleVideoClick()}
-        className={`text-white h-screen w-screen bg-black absolute z-[-1] cursor-pointer bottom-0 transition-opacity duration-300 flex justify-center items-center ${isVideoPlaying ? "opacity-0" : ""}`}
+        className={`text-white h-screen w-screen bg-black absolute z-[-1] cursor-pointer bottom-0 transition-opacity duration-300 flex flex-col justify-center items-center ${isVideoPlaying ? "opacity-0" : ""}`}
         style={{
           background:
-            "radial-gradient(circle, rgba(19,22,28,1) 26%, rgba(79,91,113,1) 91%)",
+            "radial-gradient(circle, rgba(19,22,28,1) 26%, rgba(79,91,113,1) 100%)",
           // "radial-gradient(circle, rgba(79,91,113,1) 26%, rgba(19,22,28,1) 91%)",
+          // "radial-gradient(circle, rgba(10,10,10,1) 73%, rgba(79,78,78,1) 90%, rgba(145,143,143,1) 100%)",
         }}
       >
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          height="100px"
+          width="100px"
+          viewBox="0 0 168.071 168.071"
+          fill="#000000"
         >
-          <polygon points="6 3 20 12 6 21 6 3" />
+          <g>
+            <path
+              style={{ fill: "#729067" }}
+              d="M154.932,91.819L42.473,27.483c-2.219-1.26-4.93-1.26-7.121-0.027 c-2.219,1.233-3.588,3.533-3.615,6.026L31.08,161.059c0,0,0,0,0,0.027c0,2.465,1.369,4.766,3.533,6.026 c1.123,0.63,2.355,0.959,3.615,0.959c1.205,0,2.438-0.301,3.533-0.931l113.116-63.214c2.219-1.26,3.588-3.533,3.588-6.053 c0,0,0,0,0-0.027C158.465,95.38,157.123,93.079,154.932,91.819z"
+            />
+            <g>
+              <path
+                style={{ fill: "#eeeeee" }}
+                d="M79.952,44.888L79.952,44.888c3.273-3.273,2.539-8.762-1.479-11.06l-7.288-4.171 c-2.75-1.572-6.212-1.109-8.452,1.128l0,0c-3.273,3.273-2.539,8.762,1.479,11.06l7.291,4.169 C74.25,47.589,77.712,47.126,79.952,44.888z"
+              />
+              <path
+                style={{ fill: "#eeeeee" }}
+                d="M133.459,65.285L99.103,45.631c-2.75-1.572-6.209-1.109-8.449,1.128l0,0 c-3.273,3.273-2.539,8.759,1.479,11.057l23.497,13.44L23.931,122.5l0.52-103.393l19.172,10.964 c2.722,1.558,6.152,1.098,8.367-1.12l0.104-0.104c3.24-3.24,2.514-8.674-1.463-10.95L21,0.948 c-2.219-1.26-4.93-1.26-7.121-0.027c-2.219,1.233-3.588,3.533-3.615,6.026L9.607,134.524c0,0,0,0,0,0.027 c0,2.465,1.369,4.766,3.533,6.026c1.123,0.63,2.355,0.959,3.615,0.959c1.205,0,2.438-0.301,3.533-0.931l113.116-63.214 c2.219-1.26,3.588-3.533,3.588-6.053c0,0,0,0,0-0.027C136.992,68.845,135.65,66.545,133.459,65.285z"
+              />
+            </g>
+          </g>
         </svg>
+        <div className="absolute top-[63vh] text-xs animate-float">
+          Clique sur le bouton ou presse espace
+        </div>
       </div>
 
       <div
         className={`pointer-events-auto flex flex-col items-center justify-center pt-[15vh] transition-opacity duration-300 opacity-100 ${isVideoPlaying ? "!opacity-0" : ""} ${DisableAll ? "hidden" : ""}`}
       >
         <h1
-          className="text-9xl text-white font-bold"
+          className="text-9xl text-white font-bold font-santa-catalina"
           style={{ textShadow: "0px 0px 10px #000" }}
         >
           Harvest Hub
@@ -220,7 +235,7 @@ export default function Home() {
 
         <Pages
           className=""
-          transTransi={`opacity-95 duration-[400ms]  ${!(activePage === 2) ? "translate-y-[74vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 2 ? "!translate-y-[91vh]" : "duration-[300ms]"}`}
+          transTransi={`opacity-99 duration-[400ms]  ${!(activePage === 2) ? "translate-y-[74vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 2 ? "!translate-y-[91vh]" : "duration-[300ms]"}`}
           scaleTransi={`duration-[500ms] delay-50 ${!(activePage === 2) ? "scale-[53%]" : "scale-100 delay-[170ms]"}`}
           color="bg-gray-600"
           title={{ color: "text-gray-300", txt: "Presentation_Global.pdf" }}
@@ -229,7 +244,7 @@ export default function Home() {
 
         <Pages
           className=""
-          transTransi={`opacity-95 duration-[300ms] ${!(activePage === 3) ? "translate-y-[78vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 3 ? "!translate-y-[92vh]" : "duration-[300ms]"}`}
+          transTransi={`opacity-99 duration-[300ms] ${!(activePage === 3) ? "translate-y-[78vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 3 ? "!translate-y-[92vh]" : "duration-[300ms]"}`}
           scaleTransi={`duration-[500ms] delay-50 ${!(activePage === 3) ? "scale-[56%]" : "scale-100 delay-[170ms]"}`}
           color="bg-gray-500"
           title={{ color: "text-gray-300", txt: "Presentation_Global.pdf" }}
