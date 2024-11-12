@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Pages from "./components/Pages";
 import IntroView from "./components/IntroView";
+import QuadrillageView from "./components/QuadrillageView";
 
 export default function Home() {
   const focusRef = useRef<HTMLDivElement>(null);
@@ -226,6 +227,7 @@ export default function Home() {
           scaleTransi={`duration-[500ms] delay-30 ${!(activePage === 4) ? "scale-[59%]" : "scale-100 delay-[170ms]"}`}
           color="bg-gray-400"
           title={{ color: "text-gray-600", txt: "Presentation_Global.pdf" }}
+          content={<QuadrillageView />}
         ></Pages>
 
         <Pages
