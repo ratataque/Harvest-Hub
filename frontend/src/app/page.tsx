@@ -23,7 +23,7 @@ export default function Home() {
       // console.log(isHomeActive);
       scrollLocked.current = true;
 
-      if (!playerRef.current || playerRef.current?.getPlayerState() !== 1) {
+      if (playerRef.current.paused) {
         if (scroll > 15 && currentPage.current <= 5) {
           // console.log(currentPage.current);
           setPageDown();
@@ -48,8 +48,8 @@ export default function Home() {
       }
     }
 
-    console.log(playerRef.current);
-    if (!playerRef.current || playerRef.current?.getPlayerState() !== 1) {
+    // console.log(playerRef.current);
+    if (playerRef.current.paused) {
       if (event.key === "j" && currentPage.current <= 5) {
         setPageDown();
       }
@@ -60,17 +60,18 @@ export default function Home() {
   };
 
   const handleVideoClick = () => {
-    if (playerRef.current) {
-      // 1 == playing, 2 == paused
-      if (playerRef.current.getPlayerState() === 1) {
-        playerRef.current.pauseVideo(); // Pause video if Escape is pressed
-      } else {
-        playerRef.current.playVideo(); // Play video using the Player API
-        setIsVideoPlaying(true);
-        setTimeout(() => {
-          setDisableAll(true);
-        }, 300);
-      }
+    // console.log(playerRef.current.paused);
+    if (!playerRef.current.paused) {
+      console.log("pause");
+      // playerRef.current.pause(); // Pause video if Escape is pressed
+      returnHOme();
+    } else {
+      console.log("play");
+      playerRef.current.play(); // Play video using the Player API
+      setIsVideoPlaying(true);
+      setTimeout(() => {
+        setDisableAll(true);
+      }, 300);
     }
   };
 
@@ -79,8 +80,9 @@ export default function Home() {
       setIsVideoPlaying(false); // Hide overlay on Escape
     }, 50);
     setDisableAll(false);
-    if (playerRef.current) {
-      playerRef.current.pauseVideo(); // Pause video if Escape is pressed
+    if (!playerRef.current.paused) {
+      playerRef.current.pause(); // Pause video if Escape is pressed
+      console.log("pause");
     }
 
     setIsHomeActive(true);
@@ -122,17 +124,7 @@ export default function Home() {
 
   useEffect(() => {
     focusRef.current?.focus();
-
-    if (!window.YT) {
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      document.body.appendChild(tag);
-
-      // Once the API is ready, set up the player
-      window.onYouTubeIframeAPIReady = () => {
-        playerRef.current = new window.YT.Player("yt-player");
-      };
-    }
+    playerRef.current.load();
 
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("wheel", handleScroll);
@@ -159,26 +151,28 @@ export default function Home() {
       autoFocus={true}
     >
       <div className="h-screen w-[100vw] absolute z-[-2]">
-        <iframe
-          id="yt-player"
-          className="h-full w-full"
-          src="https://www.youtube.com/embed/Z3ztaf1NWeQ?&amp;enablejsapi=1&amp;controls=0&amp;showinfo=0&amp;modestbranding=1&amp;rel=0&amp;"
-          title="YouTube video player"
-          // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        ></iframe>
+        <video
+          ref={playerRef}
+          className="w-full h-full object-cover"
+          controls={false}
+          preload="none"
+        >
+          <source src="/videos/HarvestHub.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div
+        className={`cursor-pointer z-10 text-white mr-20 pt-3 absolute right-0 text-5xl w-fit opacity-0 transition-opacity duration-300 ${isVideoPlaying ? "opacity-100" : ""}`}
+        style={{ textShadow: "0px 0px 5px #000" }}
+        onClick={() => returnHOme()}
+      >
+        Escape
       </div>
       <div
         onClick={() => handleVideoClick()}
-        className={`h-screen w-[100vw] absolute z-[-1] cursor-pointer`}
-      >
-        <div
-          className={`text-white mr-20 pt-3 absolute right-0 text-5xl w-fit opacity-0 transition-opacity duration-300 ${isVideoPlaying ? "opacity-100" : ""}`}
-          onClick={() => returnHOme()}
-        >
-          Escape
-        </div>
-      </div>
+        className={`h-[90vh] w-[100vw] absolute z-[-1] cursor-pointer bottom-0`}
+      ></div>
 
       <div
         className={`pointer-events-auto flex flex-col items-center justify-center pt-[15vh] transition-opacity duration-300 opacity-100 ${isVideoPlaying ? "!opacity-0" : ""} ${DisableAll ? "hidden" : ""}`}
