@@ -44,12 +44,12 @@ export default function GeneralView() {
     objectScale: 0.10
   });
   objects.push({
-    texture: "/models/Garden Pin v7.mtl",
-    model: "/models/Garden Pin v7.obj",
+    texture: "/models/FREE_iPhone_13_Pro_2021.mtl",
+    model: "/models/FREE_iPhone_13_Pro_2021.obj",
     container: containerRefPhone,
-    cameraPosition: [0, 0.9, 1.8],
-    baseRotation: [-Math.PI / 2, 0, 0],
-    objectScale: 0.10
+    cameraPosition: [0, 1, 2.7],
+    baseRotation: [0, 0, 0],
+    objectScale: 0.01
   });
 
   useEffect(() => {
