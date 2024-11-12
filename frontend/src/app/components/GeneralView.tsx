@@ -182,49 +182,49 @@ export default function GeneralView() {
   }, []);
 
   return (
-    <div className="h-full w-full flex justify-center items-center">
-      <div className="h-full w-full flex justify-center items-center relative">
+    <div className="h-full w-full flex-col flex gap-7 justify-center items-center relative">
+      <div className="text-6xl font-black font-mono">Un equipement</div>
+      <div className="h-2/3 w-full flex justify-center items-center relative">
           {/*<div className="w-full h-full top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 absolute">
           <Image src="/images/curved-arrow.svg" alt="Arrow image" width={2000} height={2000} className="top-1/2 left-1/2 translate-x-[-155%] translate-y-[-70%] w-32 h-32 rotate-[-10deg] absolute"/>
           <Image src="/images/curved-arrow.svg" alt="Arrow image" width={2000} height={2000} className="top-1/2 left-1/2 translate-x-[55%] translate-y-[-65%] w-32 h-32 rotate-[100deg] absolute"/>
           <Image src="/images/curved-arrow.svg" alt="Arrow image" width={2000} height={2000} className="top-1/2 left-1/2 translate-x-[-50%] translate-y-[80%] w-32 h-32 rotate-[-135deg] absolute"/>
         </div>*/}
-        <div className="w-full h-full top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 absolute">
-
+        <div className="w-full h-full flex justify-center items-center absolute">
+          <Image src="/images/blob-haikei.svg" alt="Background blob" width={2000} height={2000} className="w-full h-full"/>
         </div>
-        <div className="relative h-full w-full">
-          <div className="flex flex-col w-full h-full justify-center items-center">
-            <div className="flex w-full justify-center items-center">
-              <div className="flex w-full h-full flex-col justify-center items-center">
-                <div
-                  className="container-product container-hub min-w-[32px] min-h-[40px] w-[80%] h-[50vw] sm:w-[20vw] sm:h-[25vw] max-w-[220px] max-h-[250px] relative"
-                  ref={containerRefHub}
-                ></div>
-                <div className="uppercase font-bold">Un centre de traitement</div>
-              </div>
-            </div>
-            <div className="flex w-full justify-center items-center">
-              <div className="flex w-full justify-center items-center flex-col">
-                <div
-                  className="container-product container-node min-w-[32px] w-[45%] md:w-[20vw] max-w-[220px] aspect-square relative"
-                  ref={containerRefNode}
-                ></div>
-                <div className="uppercase font-bold">Des capteurs</div>
-              </div>
+        <div className="flex flex-col w-full h-full justify-center items-center relative">
+          <div className="flex w-full justify-center items-center">
+            <div className="flex w-full h-full flex-col justify-center items-center">
               <div
-                className="min-w-[23px]  w-[10%] md:w-[14vw] max-w-[190px] aspect-square relative"
+                className="container-product container-hub min-w-[32px] min-h-[40px] w-[80%] h-[50vw] sm:w-[20vw] sm:h-[25vw] max-w-[220px] max-h-[250px] relative"
+                ref={containerRefHub}
               ></div>
-              <div className="flex w-full justify-center items-center flex-col">
-                <div
-                  className="container-product container-phone min-w-[32px] w-[45%] md:w-[20vw] max-w-[220px] aspect-square relative"
-                  ref={containerRefPhone}
-                ></div>
-                <div className="uppercase font-bold">Une application</div>
-              </div>
+              <div className="uppercase font-mono font-bold text-black p-1 bg-white">Un centre de traitement</div>
+            </div>
+          </div>
+          <div className="flex w-full justify-center items-center">
+            <div className="flex w-full justify-center items-center flex-col">
+              <div
+                className="container-product container-node min-w-[32px] w-[45%] md:w-[20vw] max-w-[220px] aspect-square relative"
+                ref={containerRefNode}
+              ></div>
+              <div className="uppercase font-mono font-bold text-black p-1 bg-white">Des capteurs</div>
+            </div>
+            <div
+              className="min-w-[23px]  w-[10%] md:w-[14vw] max-w-[190px] aspect-square relative"
+            ></div>
+            <div className="flex w-full justify-center items-center flex-col">
+              <div
+                className="container-product container-phone min-w-[32px] w-[45%] md:w-[20vw] max-w-[220px] aspect-square relative"
+                ref={containerRefPhone}
+              ></div>
+              <div className="uppercase font-mono font-bold text-black p-1 bg-white">Une application</div>
             </div>
           </div>
         </div>
       </div>
+      <div className="text-6xl font-black font-mono">Qui communique</div>
     </div>
   )
 }
