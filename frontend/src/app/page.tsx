@@ -279,7 +279,7 @@ export default function Home() {
           scaleTransi={`duration-[500ms] delay-10 ${!(activePage === 6) ? "scale-[65%]" : "scale-100 delay-[170ms]"}`}
           color="bg-gray-200"
           title={{ color: "text-gray-500", txt: "Video_de_fin.pdf" }}
-          content={<LastView />}
+          content={<LastView pageActive={activePage === 6} />}
         ></Pages>
       </div>
     </div>
