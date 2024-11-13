@@ -5,7 +5,6 @@ import Pages from "./components/Pages";
 import IntroView from "./components/IntroView";
 import QuadrillageView from "./components/QuadrillageView";
 import GeneralView from "./components/GeneralView";
-import { Youtube } from "lucide-react";
 
 export default function Home() {
   const focusRef = useRef<HTMLDivElement>(null);
@@ -14,7 +13,7 @@ export default function Home() {
   const [activePage, setActivePage] = useState(0);
   const [isHomeActive, setIsHomeActive] = useState(true);
 
-  const playerRef = useRef<any>(null);
+  const playerRef = useRef<HTMLVideoElement>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [DisableAll, setDisableAll] = useState(false);
 
@@ -22,19 +21,16 @@ export default function Home() {
     const scroll = handleScroll.deltaY;
 
     if (!scrollLocked.current) {
-      // console.log(isHomeActive);
       scrollLocked.current = true;
 
       if (playerRef.current.paused) {
         if (scroll > 15 && currentPage.current <= 5) {
-          // console.log(currentPage.current);
           setPageDown();
         } else if (scroll < -15 && currentPage.current >= 0) {
           setPageUp();
         }
       }
 
-      // console.log(activePage);
       setTimeout(() => (scrollLocked.current = false), 600);
     }
   };

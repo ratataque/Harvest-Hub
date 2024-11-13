@@ -30,8 +30,8 @@ export default function GeneralView() {
     model: "/models/Garden Pin v7.obj",
     container: containerRefNode,
     cameraPosition: [0, 0.9, 1.8],
-    objectScale: 0.10,
-    baseRotation: [-Math.PI / 2, 0, 0]
+    objectScale: 0.1,
+    baseRotation: [-Math.PI / 2, 0, 0],
   });
   objects.push({
     texture: "/models/Harvest Hub v5.mtl",
@@ -40,7 +40,7 @@ export default function GeneralView() {
     cameraPosition: [0, 1, 4.5],
     baseRotation: [-Math.PI / 2, 0, Math.PI / 2],
     basePosition: [1.9, -1.3, 1.2],
-    objectScale: 0.10
+    objectScale: 0.1,
   });
   objects.push({
     texture: "/models/iphone_11_pro_max.mtl",
@@ -49,7 +49,7 @@ export default function GeneralView() {
     cameraPosition: [0, 1, 8],
     baseRotation: [0, 0, 0],
     basePosition: [0, -4, 2],
-    objectScale: 0.05
+    objectScale: 0.05,
   });
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function GeneralView() {
       scene.add(lights);
 
       const mtlLoader = new MTLLoader();
-      //@ts-ignore
+      // @ts-expect-error: Type incompatibility with third-party library
       mtlLoader.load(object.texture, (materials) => {
         materials.preload();
         const objLoader = new OBJLoader();
@@ -78,34 +78,54 @@ export default function GeneralView() {
               child.castShadow = true;
             }
           });
-          
-          obj.scale.set(object.objectScale, object.objectScale, object.objectScale);
-          obj.rotation.set(object.baseRotation ? object.baseRotation[0] : 0, object.baseRotation ? object.baseRotation[1] : 0, object.baseRotation ? object.baseRotation[2] : 0);
-          
+
+          obj.scale.set(
+            object.objectScale,
+            object.objectScale,
+            object.objectScale,
+          );
+          obj.rotation.set(
+            object.baseRotation ? object.baseRotation[0] : 0,
+            object.baseRotation ? object.baseRotation[1] : 0,
+            object.baseRotation ? object.baseRotation[2] : 0,
+          );
+
           // Create a pivot point
           const pivot = new THREE.Group();
           scene.add(pivot);
-          
+
           // Add pivot helper
-           //const pivotHelper = new THREE.AxesHelper(1);
-           //pivot.add(pivotHelper);
-          
+          //const pivotHelper = new THREE.AxesHelper(1);
+          //pivot.add(pivotHelper);
+
           // Position the pivot first if specified
           if (object.pivotPosition) {
-            pivot.position.set(object.pivotPosition[0], object.pivotPosition[1], object.pivotPosition[2]);
+            pivot.position.set(
+              object.pivotPosition[0],
+              object.pivotPosition[1],
+              object.pivotPosition[2],
+            );
           }
-        
+
           // Add the object to the pivot instead of the scene
           pivot.add(obj);
-        
+
           // Set the object's position relative to the pivot if specified
           if (object.basePosition) {
-            obj.position.set(object.basePosition[0], object.basePosition[1], object.basePosition[2]);
+            obj.position.set(
+              object.basePosition[0],
+              object.basePosition[1],
+              object.basePosition[2],
+            );
           }
         });
       });
 
-      camera.position.set(object.cameraPosition[0], object.cameraPosition[1], object.cameraPosition[2]);
+      camera.position.set(
+        object.cameraPosition[0],
+        object.cameraPosition[1],
+        object.cameraPosition[2],
+      );
       camera.lookAt(0, 0, 0);
 
       object.scene = scene;
@@ -128,15 +148,16 @@ export default function GeneralView() {
       for (const object of objects) {
         if (object.renderer && object.scene && object.camera) {
           const pivot = object.scene.children.find(
-            (child) => child instanceof THREE.Group
+            (child) => child instanceof THREE.Group,
           );
           if (pivot) {
             // Rotate the pivot instead of the object directly
             pivot.rotation.y += 0.005;
             // Apply the floating animation to the pivot
-            pivot.position.y = Math.sin(time * 2 + objects.indexOf(object)) * 0.1;
+            pivot.position.y =
+              Math.sin(time * 2 + objects.indexOf(object)) * 0.1;
           }
-    
+
           object.renderer?.render(object.scene, object.camera);
         }
       }
@@ -148,10 +169,10 @@ export default function GeneralView() {
         if (container) {
           const width = container.offsetWidth;
           const height = container.offsetHeight;
-          
+
           // Update renderer size to match container
           object.renderer?.setSize(width, height);
-          
+
           // Update camera aspect ratio and projection matrix
           if (object.camera) {
             object.camera.aspect = width / height;
@@ -185,13 +206,19 @@ export default function GeneralView() {
     <div className="h-full w-full flex-col flex gap-7 justify-center items-center relative">
       <div className="text-6xl font-black font-mono">Un equipement</div>
       <div className="h-2/3 w-full flex justify-center items-center relative">
-          {/*<div className="w-full h-full top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 absolute">
+        {/*<div className="w-full h-full top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 absolute">
           <Image src="/images/curved-arrow.svg" alt="Arrow image" width={2000} height={2000} className="top-1/2 left-1/2 translate-x-[-155%] translate-y-[-70%] w-32 h-32 rotate-[-10deg] absolute"/>
           <Image src="/images/curved-arrow.svg" alt="Arrow image" width={2000} height={2000} className="top-1/2 left-1/2 translate-x-[55%] translate-y-[-65%] w-32 h-32 rotate-[100deg] absolute"/>
           <Image src="/images/curved-arrow.svg" alt="Arrow image" width={2000} height={2000} className="top-1/2 left-1/2 translate-x-[-50%] translate-y-[80%] w-32 h-32 rotate-[-135deg] absolute"/>
         </div>*/}
         <div className="w-full h-full flex justify-center items-center absolute">
-          <Image src="/images/blob-haikei.svg" alt="Background blob" width={2000} height={2000} className="w-full h-full"/>
+          <Image
+            src="/images/blob-haikei.svg"
+            alt="Background blob"
+            width={2000}
+            height={2000}
+            className="w-full h-full"
+          />
         </div>
         <div className="flex flex-col w-full h-full justify-center items-center relative">
           <div className="flex w-full justify-center items-center">
@@ -200,7 +227,9 @@ export default function GeneralView() {
                 className="container-product container-hub min-w-[32px] min-h-[40px] w-[80%] h-[50vw] sm:w-[20vw] sm:h-[25vw] max-w-[220px] max-h-[250px] relative"
                 ref={containerRefHub}
               ></div>
-              <div className="uppercase font-mono font-bold text-black p-1 bg-white">Un centre de traitement</div>
+              <div className="uppercase font-mono font-bold text-black p-1 bg-white">
+                Un centre de traitement
+              </div>
             </div>
           </div>
           <div className="flex w-full justify-center items-center">
@@ -209,22 +238,24 @@ export default function GeneralView() {
                 className="container-product container-node min-w-[32px] w-[45%] md:w-[20vw] max-w-[220px] aspect-square relative"
                 ref={containerRefNode}
               ></div>
-              <div className="uppercase font-mono font-bold text-black p-1 bg-white">Des capteurs</div>
+              <div className="uppercase font-mono font-bold text-black p-1 bg-white">
+                Des capteurs
+              </div>
             </div>
-            <div
-              className="min-w-[23px]  w-[10%] md:w-[14vw] max-w-[190px] aspect-square relative"
-            ></div>
+            <div className="min-w-[23px]  w-[10%] md:w-[14vw] max-w-[190px] aspect-square relative"></div>
             <div className="flex w-full justify-center items-center flex-col">
               <div
                 className="container-product container-phone min-w-[32px] w-[45%] md:w-[20vw] max-w-[220px] aspect-square relative"
                 ref={containerRefPhone}
               ></div>
-              <div className="uppercase font-mono font-bold text-black p-1 bg-white">Une application</div>
+              <div className="uppercase font-mono font-bold text-black p-1 bg-white">
+                Une application
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div className="text-6xl font-black font-mono">Qui communique</div>
     </div>
-  )
+  );
 }

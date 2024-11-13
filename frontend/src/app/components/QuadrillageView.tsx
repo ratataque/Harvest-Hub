@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 export default function QuadrillageView() {
   return (
     <div className="w-full h-full flex flex-row-reverse px-8">
