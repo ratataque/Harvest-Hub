@@ -5,7 +5,12 @@ import Image from "next/image";
 export default function GeneralView() {
   return (
     <div className="h-full w-full flex-col flex gap-7 justify-center items-center relative">
-      <div className="text-6xl font-black font-mono">Un equipement</div>
+      <div
+        className="text-6xl text-gray-200 font-mono"
+        style={{ textShadow: "0px 0px 10px #000" }}
+      >
+        Un equipement
+      </div>
       <div className="h-2/3 w-full flex justify-center items-center relative">
         {/*<div className="w-full h-full top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 absolute">
           <Image src="/images/curved-arrow.svg" alt="Arrow image" width={2000} height={2000} className="top-1/2 left-1/2 translate-x-[-155%] translate-y-[-70%] w-32 h-32 rotate-[-10deg] absolute"/>
@@ -31,7 +36,7 @@ export default function GeneralView() {
                 height={2000}
                 className="animation-extrafloat container-product container-hub min-w-[32px] min-h-[40px] w-[80%] h-[50vw] sm:w-[20vw] sm:h-[25vw] max-w-[220px] max-h-[250px] relative"
               />
-              <div className="uppercase font-mono font-bold text-black p-1 bg-white">
+              <div className="uppercase font-mono font-bold text-black p-1 bg-white rounded-md px-2">
                 Un centre de traitement
               </div>
             </div>
@@ -45,7 +50,7 @@ export default function GeneralView() {
                 height={2000}
                 className="animation-extrafloat container-product container-hub min-w-[32px] min-h-[40px] w-[80%] h-[50vw] sm:w-[20vw] sm:h-[25vw] max-w-[220px] max-h-[250px] relative"
               />
-              <div className="uppercase font-mono font-bold text-black p-1 bg-white">
+              <div className="uppercase font-mono font-bold text-black p-1 bg-white rounded-md px-2">
                 Des capteurs
               </div>
             </div>
@@ -58,14 +63,19 @@ export default function GeneralView() {
                 height={2000}
                 className="animation-extrafloat container-product container-hub min-w-[32px] min-h-[40px] w-[80%] h-[50vw] sm:w-[20vw] sm:h-[25vw] max-w-[220px] max-h-[250px] relative"
               />
-              <div className="uppercase font-mono font-bold text-black p-1 bg-white">
+              <div className="uppercase font-mono font-bold text-black p-1 bg-white rounded-md px-2">
                 Une application
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="text-6xl font-black font-mono">Qui communique</div>
+      <div
+        className="text-6xl text-gray-200 font-mono"
+        style={{ textShadow: "0px 0px 10px #000" }}
+      >
+        Qui communique
+      </div>
 
       <Image
         src="/images/fougere.png"

@@ -3,10 +3,12 @@ import React from "react";
 import Image from "next/image";
 
 export default function HubView() {
-
   return (
     <div className="h-full w-full flex-col flex gap-7 justify-center items-center relative">
-      <div className="text-6xl font-black font-mono">
+      <div
+        className="text-6xl text-gray-200 font-mono"
+        style={{ textShadow: "0px 0px 10px #000" }}
+      >
         Un centre de traitement
       </div>
       <div className="h-2/3 w-full flex justify-center items-center relative">
@@ -19,6 +21,15 @@ export default function HubView() {
             className="w-full h-full"
           />
         </div>
+        <div
+          className="absolute w-[30%] left-7 text-lg font-700 text-gray-200 text-left top-20"
+          style={{ textShadow: "0px 0px 10px #000" }}
+        >
+          Le Hub est le centre de contrôle du jardin connecté, analysant la
+          luminosité, la pression atmosphérique, la température de l'air et le
+          taux de CO₂. Il optimise l'exposition solaire et anticipe les
+          changements climatiques.
+        </div>
         <div className="flex flex-col w-full h-full justify-center items-center relative">
           <Image
             src="/images/gif/Harvest-Hub-v6-unscreen.gif"
@@ -27,6 +38,15 @@ export default function HubView() {
             height={2000}
             className="animation-extrafloat container-product container-hub min-w-[32px] min-h-[40px] w-[80%] h-[50vw] sm:w-[30vw] sm:h-[35vw] max-w-[320px] max-h-[350px] relative"
           />
+        </div>
+
+        <div
+          className="absolute w-[30%] right-10 text-lg font-700 text-gray-200 text-right top-20"
+          style={{ textShadow: "0px 0px 10px #000" }}
+        >
+          La température extérieure est surveillée pour ajuster les soins aux
+          plantes, tandis que le capteur de CO₂ garantit une qualité d'air
+          optimale pour la photosynthèse et la croissance végétale.
         </div>
       </div>
 

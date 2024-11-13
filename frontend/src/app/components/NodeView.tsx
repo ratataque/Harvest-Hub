@@ -3,10 +3,9 @@ import React from "react";
 import Image from "next/image";
 
 export default function NodeView() {
-
   return (
     <div className="h-full w-full flex-col flex gap-7 justify-center items-center relative">
-      <div className="text-6xl font-black font-mono">
+      <div className="text-5xl font-black font-mono">
         Une sonde pour la terre
       </div>
       <div className="h-2/3 w-full flex justify-center items-center relative">
@@ -19,6 +18,11 @@ export default function NodeView() {
             className="w-full h-full"
           />
         </div>
+        <div className="absolute w-[30%] left-7 text-lg font-800 text-gray-900 text-left top-20">
+          La croissance des plantes dépend de la température du sol. Un capteur
+          ajuste l’arrosage en fonction de la chaleur et de l'humidité du sol,
+          améliorant ainsi l’hydratation et la protection des cultures.
+        </div>
         <div className="flex flex-col w-full h-full justify-center items-center relative">
           <Image
             src="/images/gif/Garden-Pin-v8-unscreen.gif"
@@ -27,6 +31,13 @@ export default function NodeView() {
             height={2000}
             className="animation-extrafloat container-product container-hub min-w-[32px] min-h-[40px] w-[80%] h-[50vw] sm:w-[30vw] sm:h-[35vw] max-w-[320px] max-h-[350px] relative"
           />
+        </div>
+
+        <div className="absolute w-[30%] right-7 text-lg font-800 text-gray-900 text-right top-20">
+          Une application propose des plantations adaptées au climat et aux
+          besoins des plantes. Une sonde pH optionnelle, utile pour les petits
+          espaces, régule l’acidité du sol afin d’optimiser l’absorption des
+          nutriments.
         </div>
       </div>
 
