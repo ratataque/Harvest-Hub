@@ -1,15 +1,16 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import * as THREE from "three";
 import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 
-export default function GeneralView() {
-  // In your useEffect:
+export default function GeneralView({ activePage = false }: { activePage?: boolean }) {
   const containerRefNode = useRef<HTMLDivElement>(null);
   const containerRefHub = useRef<HTMLDivElement>(null);
   const containerRefPhone = useRef<HTMLDivElement>(null);
+  const cooldownTimerRef = useRef<NodeJS.Timeout>();
+  const [shouldRender, setShouldRender] = useState(false);
 
   const objects: {
     scene?: THREE.Scene;
@@ -52,7 +53,40 @@ export default function GeneralView() {
     objectScale: 0.05
   });
 
+  // Handle activePage changes with cooldown
   useEffect(() => {
+    if (activePage) {
+      // Clear any existing cooldown timer
+      if (cooldownTimerRef.current) {
+        clearTimeout(cooldownTimerRef.current);
+      }
+      
+      // Set new cooldown timer
+      cooldownTimerRef.current = setTimeout(() => {
+        setShouldRender(true);
+      }, 500);
+    } else {
+      // Clear timer and immediately stop rendering
+      if (cooldownTimerRef.current) {
+        clearTimeout(cooldownTimerRef.current);
+      }
+      setShouldRender(false);
+    }
+
+    // Cleanup
+    return () => {
+      if (cooldownTimerRef.current) {
+        clearTimeout(cooldownTimerRef.current);
+      }
+    };
+  }, [activePage]);
+
+  useEffect(() => {
+    // Only initialize Three.js if should render
+    if (!shouldRender) {
+      return;
+    }
+
     for (const object of objects) {
       //setup scene
       const scene = new THREE.Scene();
@@ -179,7 +213,7 @@ export default function GeneralView() {
         }
       }
     };
-  }, []);
+  }, [shouldRender]);
 
   return (
     <div className="h-full w-full flex-col flex gap-7 justify-center items-center relative">
