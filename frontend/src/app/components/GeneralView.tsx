@@ -293,6 +293,24 @@ export default function GeneralView({
         </div>
       </div>
       <div className="text-6xl font-black font-mono">Qui communique</div>
+
+      <Image
+        src="/images/fougere.png"
+        alt="Picture of the author"
+        width={2000}
+        height={2000}
+        // className="w-96 transform rotate-[-68deg]"
+        className="w-96 absolute scale-x-[-1] bottom-[-150px] transform rotate-[68deg] right-[-100px] z-[-1]"
+      />
+
+      <Image
+        src="/images/fougere.png"
+        alt="Picture of the author"
+        width={2000}
+        height={2000}
+        // className="w-96 transform rotate-[-68deg]"
+        className="w-96 absolute transform rotate-[38deg] top-[20px] left-[-180px] scale-x-[-1] z-[-1]"
+      />
     </div>
   );
 }

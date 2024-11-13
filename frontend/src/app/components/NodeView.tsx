@@ -242,6 +242,24 @@ export default function NodeView({
           ></div>
         </div>
       </div>
+
+      <Image
+        src="/images/fougere.png"
+        alt="Picture of the author"
+        width={2000}
+        height={2000}
+        // className="w-96 transform rotate-[-68deg]"
+        className="w-96 absolute scale-x-[-1] bottom-[-180px] transform rotate-[60deg] right-[-10vw] sm:right-[-5vw] md:right-[0vw] lg:right-[15vw]  z-[-1]"
+      />
+
+      <Image
+        src="/images/fougere.png"
+        alt="Picture of the author"
+        width={2000}
+        height={2000}
+        // className="w-96 transform rotate-[-68deg]"
+        className="w-96 absolute bottom-[-180px] transform rotate-[-60deg] left-[-10vw] sm:left-[-5vw] md:left-[0vw] lg:left-[15vw] z-[-1]"
+      />
     </div>
   );
 }
