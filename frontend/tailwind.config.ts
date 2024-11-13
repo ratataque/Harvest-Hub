@@ -38,6 +38,10 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        extrafloat: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
         aggrandi: {
           "0%, 100%": { transform: "scale(1)" },
           "50%": { transform: "scale(0.92)" },
@@ -45,6 +49,7 @@ const config: Config = {
       },
       animation: {
         float: "float 4s ease-in-out infinite",
+        extrafloat: "extrafloat 1s ease-in-out infinite",
         aggrandi: "aggrandi 4s ease-in-out infinite",
       },
     },

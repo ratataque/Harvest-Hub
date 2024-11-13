@@ -1,244 +1,8 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
-import * as THREE from "three";
-import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 
-export default function GeneralView({
-  activePage = false,
-}: {
-  activePage?: boolean;
-}) {
-  const containerRefNode = useRef<HTMLDivElement>(null);
-  const containerRefHub = useRef<HTMLDivElement>(null);
-  const containerRefPhone = useRef<HTMLDivElement>(null);
-  const cooldownTimerRef = useRef<NodeJS.Timeout>();
-  const [shouldRender, setShouldRender] = useState(false);
-
-  const objects: {
-    scene?: THREE.Scene;
-    camera?: THREE.PerspectiveCamera;
-    renderer?: THREE.WebGLRenderer;
-    texture: string;
-    model: string;
-    container: React.RefObject<HTMLDivElement>;
-    cameraPosition: [number, number, number];
-    objectScale: number;
-    pivotPosition?: [number, number, number];
-    baseRotation?: [number, number, number];
-    basePosition?: [number, number, number];
-  }[] = [];
-
-  objects.push({
-    texture: "/models/Garden Pin v7.mtl",
-    model: "/models/Garden Pin v7.obj",
-    container: containerRefNode,
-    cameraPosition: [0, 0.9, 1.8],
-    objectScale: 0.1,
-    baseRotation: [-Math.PI / 2, 0, 0],
-  });
-  objects.push({
-    texture: "/models/Harvest Hub v5.mtl",
-    model: "/models/Harvest Hub v5.obj",
-    container: containerRefHub,
-    cameraPosition: [0, 1, 4.5],
-    baseRotation: [-Math.PI / 2, 0, Math.PI / 2],
-    basePosition: [1.9, -1.3, 1.2],
-    objectScale: 0.1,
-  });
-  objects.push({
-    texture: "/models/iphone_11_pro_max.mtl",
-    model: "/models/iphone_11_pro_max.obj",
-    container: containerRefPhone,
-    cameraPosition: [0, 1, 8],
-    baseRotation: [0, 0, 0],
-    basePosition: [0, -4, 2],
-    objectScale: 0.05,
-  });
-
-  // Handle activePage changes with cooldown
-  useEffect(() => {
-    if (activePage) {
-      // Clear any existing cooldown timer
-      if (cooldownTimerRef.current) {
-        clearTimeout(cooldownTimerRef.current);
-      }
-
-      // Set new cooldown timer
-      cooldownTimerRef.current = setTimeout(() => {
-        setShouldRender(true);
-      }, 500);
-    } else {
-      // Clear timer and immediately stop rendering
-      if (cooldownTimerRef.current) {
-        clearTimeout(cooldownTimerRef.current);
-      }
-      setShouldRender(false);
-    }
-
-    // Cleanup
-    return () => {
-      if (cooldownTimerRef.current) {
-        clearTimeout(cooldownTimerRef.current);
-      }
-    };
-  }, [activePage]);
-
-  useEffect(() => {
-    // Only initialize Three.js if should render
-    if (!shouldRender) {
-      return;
-    }
-
-    for (const object of objects) {
-      //setup scene
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true,
-      });
-
-      const lights = createLight();
-      scene.add(lights);
-
-      const mtlLoader = new MTLLoader();
-      mtlLoader.load(object.texture, (materials) => {
-        materials.preload();
-        const objLoader = new OBJLoader();
-        objLoader.setMaterials(materials);
-
-        objLoader.load(object.model, (obj: THREE.Group) => {
-          obj.traverse((child: THREE.Object3D) => {
-            if (child instanceof THREE.Mesh) {
-              child.castShadow = true;
-            }
-          });
-
-          obj.scale.set(
-            object.objectScale,
-            object.objectScale,
-            object.objectScale,
-          );
-          obj.rotation.set(
-            object.baseRotation ? object.baseRotation[0] : 0,
-            object.baseRotation ? object.baseRotation[1] : 0,
-            object.baseRotation ? object.baseRotation[2] : 0,
-          );
-
-          // Create a pivot point
-          const pivot = new THREE.Group();
-          scene.add(pivot);
-
-          // Add pivot helper
-          //const pivotHelper = new THREE.AxesHelper(1);
-          //pivot.add(pivotHelper);
-
-          // Position the pivot first if specified
-          if (object.pivotPosition) {
-            pivot.position.set(
-              object.pivotPosition[0],
-              object.pivotPosition[1],
-              object.pivotPosition[2],
-            );
-          }
-
-          // Add the object to the pivot instead of the scene
-          pivot.add(obj);
-
-          // Set the object's position relative to the pivot if specified
-          if (object.basePosition) {
-            obj.position.set(
-              object.basePosition[0],
-              object.basePosition[1],
-              object.basePosition[2],
-            );
-          }
-        });
-      });
-
-      camera.position.set(
-        object.cameraPosition[0],
-        object.cameraPosition[1],
-        object.cameraPosition[2],
-      );
-      camera.lookAt(0, 0, 0);
-
-      object.scene = scene;
-      object.camera = camera;
-      object.renderer = renderer;
-    }
-
-    function createLight() {
-      const directional = new THREE.DirectionalLight(0xffffff, 1.5);
-      directional.position.set(0, 8, 5);
-      // const ambient = new THREE.AmbientLight(0xe0e0e0, 1.5);
-      // ambient.position.set(5, 8, 5);
-      return directional;
-    }
-
-    // Animation loop
-    function animate() {
-      const time = Date.now() * 0.001;
-      requestAnimationFrame(animate);
-      for (const object of objects) {
-        if (object.renderer && object.scene && object.camera) {
-          const pivot = object.scene.children.find(
-            (child) => child instanceof THREE.Group,
-          );
-          if (pivot) {
-            // Rotate the pivot instead of the object directly
-            pivot.rotation.y += 0.005;
-            // Apply the floating animation to the pivot
-            pivot.position.y =
-              Math.sin(time * 2 + objects.indexOf(object)) * 0.1;
-          }
-
-          object.renderer?.render(object.scene, object.camera);
-        }
-      }
-    }
-
-    const updateSize = () => {
-      for (const object of objects) {
-        const container = object.container.current;
-        if (container) {
-          const width = container.offsetWidth;
-          const height = container.offsetHeight;
-
-          // Update renderer size to match container
-          object.renderer?.setSize(width, height);
-
-          // Update camera aspect ratio and projection matrix
-          if (object.camera) {
-            object.camera.aspect = width / height;
-            object.camera.updateProjectionMatrix();
-          }
-        }
-      }
-    };
-
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    for (const object of objects) {
-      if (object.renderer) {
-        object.container.current?.appendChild(object.renderer.domElement);
-      }
-    }
-
-    animate();
-
-    return () => {
-      window.removeEventListener("resize", updateSize);
-      for (const object of objects) {
-        if (object.renderer) {
-          object.container.current?.removeChild(object.renderer.domElement);
-        }
-      }
-    };
-  }, [shouldRender]);
-
+export default function GeneralView() {
   return (
     <div className="h-full w-full flex-col flex gap-7 justify-center items-center relative">
       <div className="text-6xl font-black font-mono">Un equipement</div>
@@ -260,10 +24,13 @@ export default function GeneralView({
         <div className="flex flex-col w-full h-full justify-center items-center relative">
           <div className="flex w-full justify-center items-center">
             <div className="flex w-full h-full flex-col justify-center items-center">
-              <div
-                className="container-product container-hub min-w-[32px] min-h-[40px] w-[80%] h-[50vw] sm:w-[20vw] sm:h-[25vw] max-w-[220px] max-h-[250px] relative"
-                ref={containerRefHub}
-              ></div>
+              <Image
+                src="/images/gif/Harvest-Hub-v6-unscreen.gif"
+                alt="Background blob"
+                width={2000}
+                height={2000}
+                className="animation-extrafloat container-product container-hub min-w-[32px] min-h-[40px] w-[80%] h-[50vw] sm:w-[20vw] sm:h-[25vw] max-w-[220px] max-h-[250px] relative"
+              />
               <div className="uppercase font-mono font-bold text-black p-1 bg-white">
                 Un centre de traitement
               </div>
@@ -271,20 +38,26 @@ export default function GeneralView({
           </div>
           <div className="flex w-full justify-center items-center">
             <div className="flex w-full justify-center items-center flex-col">
-              <div
-                className="container-product container-node min-w-[32px] w-[45%] md:w-[20vw] max-w-[220px] aspect-square relative"
-                ref={containerRefNode}
-              ></div>
+              <Image
+                src="/images/gif/Garden-Pin-v8-unscreen.gif"
+                alt="Background blob"
+                width={2000}
+                height={2000}
+                className="animation-extrafloat container-product container-hub min-w-[32px] min-h-[40px] w-[80%] h-[50vw] sm:w-[20vw] sm:h-[25vw] max-w-[220px] max-h-[250px] relative"
+              />
               <div className="uppercase font-mono font-bold text-black p-1 bg-white">
                 Des capteurs
               </div>
             </div>
             <div className="min-w-[23px]  w-[10%] md:w-[14vw] max-w-[190px] aspect-square relative"></div>
             <div className="flex w-full justify-center items-center flex-col">
-              <div
-                className="container-product container-phone min-w-[32px] w-[45%] md:w-[20vw] max-w-[220px] aspect-square relative"
-                ref={containerRefPhone}
-              ></div>
+              <Image
+                src="/images/gif/Iphone-v2-unscreen.gif"
+                alt="Background blob"
+                width={2000}
+                height={2000}
+                className="animation-extrafloat container-product container-hub min-w-[32px] min-h-[40px] w-[80%] h-[50vw] sm:w-[20vw] sm:h-[25vw] max-w-[220px] max-h-[250px] relative"
+              />
               <div className="uppercase font-mono font-bold text-black p-1 bg-white">
                 Une application
               </div>
