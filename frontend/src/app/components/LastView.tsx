@@ -10,7 +10,7 @@ export default function LastView({ pageActive }: { pageActive: boolean }) {
     if (pageActive) {
       // console.log("pageActive");
       videoRef.current?.load();
-      videoRef.current?.play();
+      // videoRef.current?.play();
     }
   });
 
