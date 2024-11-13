@@ -51,7 +51,7 @@ export default function HubView() {
       </div>
 
       <Image
-        src="/images/fougere.png"
+        src="/images/fougere_downscaled.png"
         alt="Picture of the author"
         width={2000}
         height={2000}
@@ -60,7 +60,7 @@ export default function HubView() {
       />
 
       <Image
-        src="/images/fougere.png"
+        src="/images/fougere_downscaled.png"
         alt="Picture of the author"
         width={2000}
         height={2000}

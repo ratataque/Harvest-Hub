@@ -65,7 +65,7 @@ export default function IntroView() {
       </div>
       <div className="w-auto h-full flex justify-center items-center flex-grow flex-col">
         <Image
-          src="/images/garden.png"
+          src="/images/garden_downscaled.png"
           alt="Picture of the author"
           width={2000}
           height={2000}
@@ -75,7 +75,7 @@ export default function IntroView() {
       </div>
 
       <Image
-        src="/images/fougere.png"
+        src="/images/fougere_downscaled.png"
         alt="Picture of the author"
         width={2000}
         height={2000}
@@ -84,7 +84,7 @@ export default function IntroView() {
       />
 
       <Image
-        src="/images/fougere.png"
+        src="/images/fougere_downscaled.png"
         alt="Picture of the author"
         width={2000}
         height={2000}
