@@ -7,6 +7,7 @@ import QuadrillageView from "./components/QuadrillageView";
 import GeneralView from "./components/GeneralView";
 import HubView from "./components/HubView";
 import NodeView from "./components/NodeView";
+import LastView from "./components/LastView";
 
 export default function Home() {
   const focusRef = useRef<HTMLDivElement>(null);
@@ -26,7 +27,7 @@ export default function Home() {
       scrollLocked.current = true;
 
       if (playerRef.current && playerRef.current.paused) {
-        if (scroll > 15 && currentPage.current <= 5) {
+        if (scroll > 15 && currentPage.current <= 6) {
           setPageDown();
         } else if (scroll < -15 && currentPage.current >= 0) {
           setPageUp();
@@ -50,7 +51,7 @@ export default function Home() {
 
     // console.log(playerRef.current);
     if (playerRef.current && playerRef.current.paused) {
-      if (event.key === "j" && currentPage.current <= 5) {
+      if (event.key === "j" && currentPage.current <= 6) {
         setPageDown();
       }
       if (event.key === "k" && currentPage.current >= 0) {
@@ -102,7 +103,7 @@ export default function Home() {
       setTimeout(() => {
         setIsHomeActive(false);
         setActivePage(
-          Math.min(currentPage.current !== 5 ? currentPage.current + 1 : 0, 5),
+          Math.min(currentPage.current !== 6 ? currentPage.current + 1 : 0, 6),
         );
       }, 550);
     }
@@ -111,14 +112,14 @@ export default function Home() {
   const setPageUp = () => {
     if (currentPage.current === 0) {
       setIsHomeActive(false);
-      setActivePage(5);
+      setActivePage(6);
     } else {
       setIsHomeActive(true);
       setActivePage(-1);
       setTimeout(() => {
         setIsHomeActive(false);
         setActivePage(
-          Math.max(currentPage.current ? currentPage.current - 1 : 5, 0),
+          Math.max(currentPage.current ? currentPage.current - 1 : 6, 0),
         );
       }, 550);
     }
@@ -270,6 +271,15 @@ export default function Home() {
           color="bg-gray-300"
           title={{ color: "text-gray-500", txt: "Presentation_Global.pdf" }}
           content={<QuadrillageView />}
+        ></Pages>
+
+        <Pages
+          className=""
+          transTransi={`duration-[100ms] ${!(activePage === 6) ? "translate-y-[90vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 6 ? "!translate-y-[94vh]" : "duration-[300ms]"}`}
+          scaleTransi={`duration-[500ms] delay-10 ${!(activePage === 6) ? "scale-[65%]" : "scale-100 delay-[170ms]"}`}
+          color="bg-gray-200"
+          title={{ color: "text-gray-500", txt: "Presentation_Global.pdf" }}
+          content={<LastView />}
         ></Pages>
       </div>
     </div>
