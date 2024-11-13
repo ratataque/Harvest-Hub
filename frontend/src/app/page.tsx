@@ -25,7 +25,7 @@ export default function Home() {
     if (!scrollLocked.current) {
       scrollLocked.current = true;
 
-      if (playerRef.current.paused) {
+      if (playerRef.current && playerRef.current.paused) {
         if (scroll > 15 && currentPage.current <= 5) {
           setPageDown();
         } else if (scroll < -15 && currentPage.current >= 0) {
@@ -49,7 +49,7 @@ export default function Home() {
     }
 
     // console.log(playerRef.current);
-    if (playerRef.current.paused) {
+    if (playerRef.current && playerRef.current.paused) {
       if (event.key === "j" && currentPage.current <= 5) {
         setPageDown();
       }
@@ -61,13 +61,15 @@ export default function Home() {
 
   const handleVideoClick = () => {
     // console.log(playerRef.current.paused);
-    if (!playerRef.current.paused) {
+    if (playerRef.current && !playerRef.current.paused) {
       console.log("pause");
       // playerRef.current.pause(); // Pause video if Escape is pressed
       returnHOme();
     } else {
       console.log("play");
-      playerRef.current.play(); // Play video using the Player API
+      if (playerRef.current) {
+        playerRef.current.play();
+      }
       setIsVideoPlaying(true);
       setTimeout(() => {
         setDisableAll(true);
@@ -80,7 +82,7 @@ export default function Home() {
       setIsVideoPlaying(false); // Hide overlay on Escape
     }, 50);
     setDisableAll(false);
-    if (!playerRef.current.paused) {
+    if (playerRef.current && !playerRef.current.paused) {
       playerRef.current.pause(); // Pause video if Escape is pressed
       console.log("pause");
     }
@@ -124,7 +126,10 @@ export default function Home() {
 
   useEffect(() => {
     focusRef.current?.focus();
-    playerRef.current.load();
+
+    if (playerRef.current) {
+      playerRef.current.load();
+    }
 
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("wheel", handleScroll);

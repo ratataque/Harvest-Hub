@@ -2,19 +2,28 @@
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import * as THREE from "three";
-import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 
-export default function HubView({ activePage = false }: { activePage?: boolean }) {
+export default function HubView({
+  activePage = false,
+}: {
+  activePage?: boolean;
+}) {
   const containerRefHub = useRef<HTMLDivElement>(null);
   const cooldownTimerRef = useRef<NodeJS.Timeout>();
   const [shouldRender, setShouldRender] = useState(false);
-  const [sceneInstances, setSceneInstances] = useState<{
-    scene?: THREE.Scene;
-    camera?: THREE.PerspectiveCamera;
-    renderer?: THREE.WebGLRenderer;
-    animationFrameId?: number;
-  }[]>([]);
+  const [sceneInstances, setSceneInstances] = useState<
+    {
+      scene?: THREE.Scene;
+      camera?: THREE.PerspectiveCamera;
+      renderer?: THREE.WebGLRenderer;
+      animationFrameId?: number;
+    }[]
+  >([]);
+
+  const test = sceneInstances;
+  console.log(test);
 
   const objects: {
     texture: string;
@@ -25,15 +34,17 @@ export default function HubView({ activePage = false }: { activePage?: boolean }
     pivotPosition?: [number, number, number];
     baseRotation?: [number, number, number];
     basePosition?: [number, number, number];
-  }[] = [{
-    texture: "/models/Harvest Hub v5.mtl",
-    model: "/models/Harvest Hub v5.obj",
-    container: containerRefHub,
-    cameraPosition: [0, 1, 4.5],
-    baseRotation: [-Math.PI / 2, 0, Math.PI / 2],
-    basePosition: [1.9, -1.3, 1.2],
-    objectScale: 0.10
-  }];
+  }[] = [
+    {
+      texture: "/models/Harvest Hub v5.mtl",
+      model: "/models/Harvest Hub v5.obj",
+      container: containerRefHub,
+      cameraPosition: [0, 1, 4.5],
+      baseRotation: [-Math.PI / 2, 0, Math.PI / 2],
+      basePosition: [1.9, -1.3, 1.2],
+      objectScale: 0.1,
+    },
+  ];
 
   // Handle activePage changes with cooldown
   useEffect(() => {
@@ -42,7 +53,7 @@ export default function HubView({ activePage = false }: { activePage?: boolean }
       if (cooldownTimerRef.current) {
         clearTimeout(cooldownTimerRef.current);
       }
-      
+
       // Set new cooldown timer
       cooldownTimerRef.current = setTimeout(() => {
         setShouldRender(true);
@@ -90,7 +101,6 @@ export default function HubView({ activePage = false }: { activePage?: boolean }
       scene.add(lights);
 
       const mtlLoader = new MTLLoader();
-      // @ts-ignore
       mtlLoader.load(object.texture, (materials) => {
         materials.preload();
         const objLoader = new OBJLoader();
@@ -102,23 +112,27 @@ export default function HubView({ activePage = false }: { activePage?: boolean }
               child.castShadow = true;
             }
           });
-          
-          obj.scale.set(object.objectScale, object.objectScale, object.objectScale);
+
+          obj.scale.set(
+            object.objectScale,
+            object.objectScale,
+            object.objectScale,
+          );
           obj.rotation.set(
             object.baseRotation?.[0] ?? 0,
             object.baseRotation?.[1] ?? 0,
-            object.baseRotation?.[2] ?? 0
+            object.baseRotation?.[2] ?? 0,
           );
-          
+
           const pivot = new THREE.Group();
           scene.add(pivot);
-          
+
           if (object.pivotPosition) {
             pivot.position.set(...object.pivotPosition);
           }
-        
+
           pivot.add(obj);
-        
+
           if (object.basePosition) {
             obj.position.set(...object.basePosition);
           }
@@ -141,13 +155,13 @@ export default function HubView({ activePage = false }: { activePage?: boolean }
       instances.forEach((instance, index) => {
         if (instance.renderer && instance.scene && instance.camera) {
           const pivot = instance.scene.children.find(
-            (child) => child instanceof THREE.Group
+            (child) => child instanceof THREE.Group,
           );
           if (pivot) {
             pivot.rotation.y += 0.005;
             pivot.position.y = Math.sin(time * 2 + index) * 0.1;
           }
-    
+
           instance.renderer.render(instance.scene, instance.camera);
         }
       });
@@ -164,7 +178,7 @@ export default function HubView({ activePage = false }: { activePage?: boolean }
         if (container && instance.renderer && instance.camera) {
           const width = container.offsetWidth;
           const height = container.offsetHeight;
-          
+
           instance.renderer.setSize(width, height);
           instance.camera.aspect = width / height;
           instance.camera.updateProjectionMatrix();
@@ -178,7 +192,9 @@ export default function HubView({ activePage = false }: { activePage?: boolean }
     // Append renderers to containers
     instances.forEach((instance, index) => {
       if (instance.renderer) {
-        objects[index].container.current?.appendChild(instance.renderer.domElement);
+        objects[index].container.current?.appendChild(
+          instance.renderer.domElement,
+        );
       }
     });
 
@@ -187,7 +203,7 @@ export default function HubView({ activePage = false }: { activePage?: boolean }
     // Cleanup function
     return () => {
       window.removeEventListener("resize", updateSize);
-      
+
       // Cancel animation frame
       const lastInstance = instances[instances.length - 1];
       if (lastInstance?.animationFrameId) {
@@ -197,7 +213,9 @@ export default function HubView({ activePage = false }: { activePage?: boolean }
       // Remove renderers and dispose of resources
       instances.forEach((instance, index) => {
         if (instance.renderer) {
-          objects[index].container.current?.removeChild(instance.renderer.domElement);
+          objects[index].container.current?.removeChild(
+            instance.renderer.domElement,
+          );
           instance.renderer.dispose();
         }
       });
@@ -206,10 +224,18 @@ export default function HubView({ activePage = false }: { activePage?: boolean }
 
   return (
     <div className="h-full w-full flex-col flex gap-7 justify-center items-center relative">
-      <div className="text-6xl font-black font-mono">Un centre de traitement</div>
+      <div className="text-6xl font-black font-mono">
+        Un centre de traitement
+      </div>
       <div className="h-2/3 w-full flex justify-center items-center relative">
         <div className="w-full h-full flex justify-center items-center absolute">
-          <Image src="/images/blob-haikei.svg" alt="Background blob" width={2000} height={2000} className="w-full h-full"/>
+          <Image
+            src="/images/blob-haikei.svg"
+            alt="Background blob"
+            width={2000}
+            height={2000}
+            className="w-full h-full"
+          />
         </div>
         <div className="flex flex-col w-full h-full justify-center items-center relative">
           <div

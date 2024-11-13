@@ -2,10 +2,14 @@
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import * as THREE from "three";
-import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 
-export default function GeneralView({ activePage = false }: { activePage?: boolean }) {
+export default function GeneralView({
+  activePage = false,
+}: {
+  activePage?: boolean;
+}) {
   const containerRefNode = useRef<HTMLDivElement>(null);
   const containerRefHub = useRef<HTMLDivElement>(null);
   const containerRefPhone = useRef<HTMLDivElement>(null);
@@ -60,7 +64,7 @@ export default function GeneralView({ activePage = false }: { activePage?: boole
       if (cooldownTimerRef.current) {
         clearTimeout(cooldownTimerRef.current);
       }
-      
+
       // Set new cooldown timer
       cooldownTimerRef.current = setTimeout(() => {
         setShouldRender(true);
@@ -100,7 +104,6 @@ export default function GeneralView({ activePage = false }: { activePage?: boole
       scene.add(lights);
 
       const mtlLoader = new MTLLoader();
-      // @ts-expect-error: Type incompatibility with third-party library
       mtlLoader.load(object.texture, (materials) => {
         materials.preload();
         const objLoader = new OBJLoader();

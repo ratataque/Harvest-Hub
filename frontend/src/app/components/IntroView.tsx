@@ -31,31 +31,31 @@ export default function IntroView() {
               pour un suivi en temps
             </div>
             <div className=" px-5 relative left-[-23px] w-[104%]">
-              réel de l'état des cultures ou des fleurs grace a
+              réel de l&apos;état des cultures ou des fleurs grace a
             </div>
             <div className=" px-5 relative left-[-22px] w-[96%]">
               de multiples capteurs. La solution comprend
             </div>
             <div className=" px-5 relative left-[-15px] w-[100%]">
-              également tautomatisation de l'arrosage et des
+              également tautomatisation de l&apos;arrosage et des
             </div>
             <div className=" px-5 relative left-[-8px] w-[96%]">
               conseils personnalisés via IA.{" "}
             </div>
             <div className=" px-5 relative left-[4px] w-[108%]">
-              L'application propose des idées de recettes basées
+              L&apos;application propose des idées de recettes basées
             </div>
             <div className=" px-5 relative left-[22px] w-[96%]">
               sur les récoltes, un systérne de gamification
             </div>
             <div className=" px-5 relative left-[49px] w-[96%]">
-              pour accumuler des points, ainsi qu'un jardin
+              pour accumuler des points, ainsi qu&apos;un jardin
             </div>
             <div className=" px-5 relative left-[75px] w-[96%]">
               virtuel personnalisable avec Ies points
             </div>
             <div className=" px-5 relative left-[125px] w-[96%]">
-              obtenus. Renforgeant l'aspect ludique et
+              obtenus. Renforgeant l&apos;aspect ludique et
             </div>
             <div className=" px-5 relative left-[185px] w-[96%]">
               communautaire.
