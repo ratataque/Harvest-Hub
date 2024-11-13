@@ -20,8 +20,9 @@ export default function NodeView() {
         </div>
         <div className="absolute w-[30%] left-7 text-lg font-800 text-gray-900 text-left top-20">
           La croissance des plantes dépend de la température du sol. Un capteur
-          ajuste l’arrosage en fonction de la chaleur et de l'humidité du sol,
-          améliorant ainsi l’hydratation et la protection des cultures.
+          ajuste l&apos;arrosage en fonction de la chaleur et de l&apos;humidité
+          du sol, améliorant ainsi l&apos;hydratation et la protection des
+          cultures.
         </div>
         <div className="flex flex-col w-full h-full justify-center items-center relative">
           <Image
@@ -36,8 +37,8 @@ export default function NodeView() {
         <div className="absolute w-[30%] right-7 text-lg font-800 text-gray-900 text-right top-20">
           Une application propose des plantations adaptées au climat et aux
           besoins des plantes. Une sonde pH optionnelle, utile pour les petits
-          espaces, régule l’acidité du sol afin d’optimiser l’absorption des
-          nutriments.
+          espaces, régule l&apos;acidité du sol afin d&apos;optimiser
+          l&apos;absorption des nutriments.
         </div>
       </div>
 

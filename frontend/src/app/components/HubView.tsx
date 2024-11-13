@@ -26,8 +26,8 @@ export default function HubView() {
           style={{ textShadow: "0px 0px 10px #000" }}
         >
           Le Hub est le centre de contrôle du jardin connecté, analysant la
-          luminosité, la pression atmosphérique, la température de l'air et le
-          taux de CO₂. Il optimise l'exposition solaire et anticipe les
+          luminosité, la pression atmosphérique, la température de l&apos;air et
+          le taux de CO₂. Il optimise l&apos;exposition solaire et anticipe les
           changements climatiques.
         </div>
         <div className="flex flex-col w-full h-full justify-center items-center relative">
@@ -45,7 +45,7 @@ export default function HubView() {
           style={{ textShadow: "0px 0px 10px #000" }}
         >
           La température extérieure est surveillée pour ajuster les soins aux
-          plantes, tandis que le capteur de CO₂ garantit une qualité d'air
+          plantes, tandis que le capteur de CO₂ garantit une qualité d&apos;air
           optimale pour la photosynthèse et la croissance végétale.
         </div>
       </div>
