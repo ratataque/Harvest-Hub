@@ -12,6 +12,11 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+const SantaCatalina = localFont({
+  src: "./fonts/SantaCatalina.otf",
+  variable: "--font-santa-catalina",
+  weight: "100 900",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
