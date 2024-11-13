@@ -229,7 +229,7 @@ export default function Home() {
       >
         <Pages
           className=""
-          transTransi={`duration-[460ms] ${!(activePage === 1) ? "translate-y-[70vh] delay-[200ms] " : "!translate-y-0"} ${!isHomeActive && activePage !== 1 ? "!translate-y-[90vh]" : "duration-[300ms]"}`}
+          transTransi={`duration-[460ms] ${!(activePage === 1) ? "translate-y-[69vh] delay-[200ms] " : "!translate-y-0"} ${!isHomeActive && activePage !== 1 ? "!translate-y-[90vh]" : "duration-[300ms]"}`}
           scaleTransi={`duration-[500ms] delay-50 ${!(activePage === 1) ? "scale-[50%]" : "scale-100 delay-[140ms]"}`}
           // style={{ transition: "z-index 0.5s step-end, opacity 0.5s linear" }}
           color="bg-gray-700/[.97]"
@@ -239,7 +239,7 @@ export default function Home() {
 
         <Pages
           className=""
-          transTransi={`opacity-99 duration-[400ms]  ${!(activePage === 2) ? "translate-y-[74vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 2 ? "!translate-y-[91vh]" : "duration-[300ms]"}`}
+          transTransi={`opacity-99 duration-[400ms]  ${!(activePage === 2) ? "translate-y-[73vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 2 ? "!translate-y-[91vh]" : "duration-[300ms]"}`}
           scaleTransi={`duration-[500ms] delay-50 ${!(activePage === 2) ? "scale-[53%]" : "scale-100 delay-[170ms]"}`}
           color="bg-gray-600"
           title={{ color: "text-gray-300", txt: "Presentation_Global.pdf" }}
@@ -248,7 +248,7 @@ export default function Home() {
 
         <Pages
           className=""
-          transTransi={`opacity-99 duration-[300ms] ${!(activePage === 3) ? "translate-y-[78vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 3 ? "!translate-y-[92vh]" : "duration-[300ms]"}`}
+          transTransi={`opacity-99 duration-[300ms] ${!(activePage === 3) ? "translate-y-[77vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 3 ? "!translate-y-[92vh]" : "duration-[300ms]"}`}
           scaleTransi={`duration-[500ms] delay-50 ${!(activePage === 3) ? "scale-[56%]" : "scale-100 delay-[170ms]"}`}
           color="bg-gray-500"
           title={{ color: "text-gray-300", txt: "Presentation_Global.pdf" }}
@@ -257,7 +257,7 @@ export default function Home() {
 
         <Pages
           className=""
-          transTransi={`duration-[200ms] ${!(activePage === 4) ? "translate-y-[82vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 4 ? "!translate-y-[93vh]" : "duration-[300ms]"}`}
+          transTransi={`duration-[200ms] ${!(activePage === 4) ? "translate-y-[81vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 4 ? "!translate-y-[93vh]" : "duration-[300ms]"}`}
           scaleTransi={`duration-[500ms] delay-30 ${!(activePage === 4) ? "scale-[59%]" : "scale-100 delay-[170ms]"}`}
           color="bg-gray-400"
           title={{ color: "text-gray-600", txt: "Presentation_Global.pdf" }}
@@ -266,7 +266,7 @@ export default function Home() {
 
         <Pages
           className=""
-          transTransi={`duration-[100ms] ${!(activePage === 5) ? "translate-y-[86vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 5 ? "!translate-y-[94vh]" : "duration-[300ms]"}`}
+          transTransi={`duration-[100ms] ${!(activePage === 5) ? "translate-y-[85vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 5 ? "!translate-y-[94vh]" : "duration-[300ms]"}`}
           scaleTransi={`duration-[500ms] delay-10 ${!(activePage === 5) ? "scale-[62%]" : "scale-100 delay-[170ms]"}`}
           color="bg-gray-300"
           title={{ color: "text-gray-500", txt: "Presentation_Global.pdf" }}
@@ -275,7 +275,7 @@ export default function Home() {
 
         <Pages
           className=""
-          transTransi={`duration-[100ms] ${!(activePage === 6) ? "translate-y-[90vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 6 ? "!translate-y-[94vh]" : "duration-[300ms]"}`}
+          transTransi={`duration-[100ms] ${!(activePage === 6) ? "translate-y-[89vh] delay-[200ms]" : "!translate-y-0 !duration-[500ms]"} ${!isHomeActive && activePage !== 6 ? "!translate-y-[94vh]" : "duration-[300ms]"}`}
           scaleTransi={`duration-[500ms] delay-10 ${!(activePage === 6) ? "scale-[65%]" : "scale-100 delay-[170ms]"}`}
           color="bg-gray-200"
           title={{ color: "text-gray-500", txt: "Presentation_Global.pdf" }}
