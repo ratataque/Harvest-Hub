@@ -15,8 +15,8 @@ export default function QuadrillageView() {
           Le tout disponible dans une application pratique et ludique.
           <br />
           <br />
-          Consulter en temps reel l'etat de santé des plantes de votre jardin,
-          ou de votre balcon.
+          Consulter en temps reel l&apos;etat de santé des plantes de votre
+          jardin, ou de votre balcon.
         </div>
       </div>
 
