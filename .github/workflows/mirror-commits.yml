@@ -28,5 +28,8 @@ jobs:
         run: |
           curl -H "Authorization: token ${{ secrets.PAT_GRIMALDEV_HARVESTHUB }}" https://api.github.com/repos/EpitechMscProPromo2026/T-ESP-800-project-71769-STG_OH-MAX
 
-      - name: Push to target repo preserving commit history
-        run: git push origin HEAD:main --force
+      - name: Filter out workflow files from history
+        run: |
+          git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch -r .github/workflows/' --prune-empty --tag-name-filter cat -- --all
+          git push origin HEAD:main --force
+
