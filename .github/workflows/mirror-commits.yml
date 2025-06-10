@@ -14,19 +14,29 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Show Git Version
+        run: git --version
+
+      - name: Unset global credential helper
+        run: |
+          git config --global --unset credential.helper
+
       - name: Configure Git
         run: |
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+      - name: Set remote URL
+        run: |
           git remote set-url origin https://x-access-token:${{ secrets.PAT_GRIMALDEV_HARVESTHUB }}@github.com/EpitechMscProPromo2026/T-ESP-800-project-71769-STG_OH-MAX.git
+
+      - name: Verify remote URL
+        run: git remote -v
 
       - name: Test API Access
         run: |
           curl -H "Authorization: token ${{ secrets.PAT_GRIMALDEV_HARVESTHUB }}" https://api.github.com/repos/EpitechMscProPromo2026/T-ESP-800-project-71769-STG_OH-MAX
 
-      - name: Add target repo remote
-        run: |
-          git remote add target https://x-access-token:${{ secrets.PAT_GRIMALDEV_HARVESTHUB }}@github.com/EpitechMscProPromo2026/T-ESP-800-project-71769-STG_OH-MAX.git
       - name: Push to target repo preserving commit history
         run: |
-          git push target HEAD:main --force
+          git push origin HEAD:main --force
