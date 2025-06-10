@@ -17,9 +17,11 @@ jobs:
       - name: Show Git Version
         run: git --version
 
-      - name: Unset global credential helper
+      - name: Unset global credential helper if set
         run: |
-          git config --global --unset credential.helper
+          if git config --global --get credential.helper; then
+            git config --global --unset credential.helper
+          fi
 
       - name: Configure Git
         run: |
