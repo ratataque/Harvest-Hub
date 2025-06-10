@@ -18,11 +18,11 @@ jobs:
         run: |
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/EpitechMscProPromo2026/T-ESP-800-project-71769-STG_OH-MAX.git
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_GRIMALDEV_HARVESTHUB }}@github.com/EpitechMscProPromo2026/T-ESP-800-project-71769-STG_OH-MAX.git
 
       - name: Test API Access
         run: |
-          curl -H "Authorization: token ${{ secrets.PAT }}" https://api.github.com/repos/EpitechMscProPromo2026/T-ESP-800-project-71769-STG_OH-MAX
+          curl -H "Authorization: token ${{ secrets.PAT_GRIMALDEV_HARVESTHUB }}" https://api.github.com/repos/EpitechMscProPromo2026/T-ESP-800-project-71769-STG_OH-MAX
 
       - name: Add target repo remote
         run: |
