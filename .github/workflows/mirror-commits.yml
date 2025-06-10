@@ -27,7 +27,6 @@ jobs:
       - name: Add target repo remote
         run: |
           git remote add target https://x-access-token:${{ secrets.PAT_GRIMALDEV_HARVESTHUB }}@github.com/EpitechMscProPromo2026/T-ESP-800-project-71769-STG_OH-MAX.git
-
       - name: Push to target repo preserving commit history
         run: |
           git push target HEAD:main --force
