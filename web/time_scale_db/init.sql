@@ -8,11 +8,30 @@ CREATE TABLE sensor_data (
 
 SELECT create_hypertable('sensor_data', 'time');
 
+-- Insert data for the last 24 hours at 15-minute intervals for node 1
 INSERT INTO sensor_data (time, node_id, temperature, humidity, soil_moisture)
-VALUES
-    (NOW() - INTERVAL '1 hour', 1, 25.5, 60.2, 30.1),
-    (NOW() - INTERVAL '30 minutes', 1, 26.1, 58.9, 30.5),
-    (NOW(), 1, 26.4, 58.5, 30.8),
-    (NOW() - INTERVAL '1 hour', 2, 24.8, 62.5, 28.9),
-    (NOW() - INTERVAL '30 minutes', 2, 25.2, 61.8, 29.2),
-    (NOW(), 2, 25.6, 61.4, 29.5);
+SELECT
+    time,
+    1 AS node_id,
+    25 + (random() * 5) AS temperature,
+    60 + (random() * 10) AS humidity,
+    30 + (random() * 5) AS soil_moisture
+FROM generate_series(
+    NOW() - INTERVAL '24 hours',
+    NOW(),
+    INTERVAL '15 minutes'
+) AS time;
+
+-- Insert data for the last 24 hours at 15-minute intervals for node 2
+INSERT INTO sensor_data (time, node_id, temperature, humidity, soil_moisture)
+SELECT
+    time,
+    2 AS node_id,
+    24 + (random() * 5) AS temperature,
+    62 + (random() * 10) AS humidity,
+    28 + (random() * 5) AS soil_moisture
+FROM generate_series(
+    NOW() - INTERVAL '24 hours',
+    NOW(),
+    INTERVAL '15 minutes'
+) AS time;
