@@ -1,0 +1,18 @@
+version: '3'
+services:
+  db:
+    image: timescale/timescaledb:latest-pg14
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=harvest_hub
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
