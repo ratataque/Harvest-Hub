@@ -4,12 +4,22 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"github.com/labstack/echo/v4"
+	"github.com/swaggo/echo-swagger"
+	_ "harvest-hub/api/docs"
 	"log"
 	"net/http"
 	"time"
 
 	_ "github.com/lib/pq"
 )
+
+//	@title			Harvest Hub API
+//	@version		1.0
+//	@description 	Ceci est la documentation de l’API Harvest Hub.
+//	@termsOfService	http://swagger.io/terms/
+
+
 
 const (
 	host     = "db"
@@ -20,14 +30,34 @@ const (
 )
 
 type SensorData struct {
-	Time          time.Time `json:"time"`
-	NodeID        int       `json:"node_id"`
-	Temperature   float64   `json:"temperature"`
-	Humidity      float64   `json:"humidity"`
-	SoilMoisture  float64   `json:"soil_moisture"`
+	Time         time.Time `json:"time"`
+	NodeID       int       `json:"node_id"`
+	Temperature  float64   `json:"temperature"`
+	Humidity     float64   `json:"humidity"`
+	SoilMoisture float64   `json:"soil_moisture"`
+}
+
+
+// Ping godoc
+// @Summary      Route de test
+// @Description  Vérifie que l’API fonctionne en renvoyant "pong"
+// @Tags         test
+// @Produce      plain
+// @Success      200 {string} string "pong"
+// @Router       /ping [get]
+func Ping(c echo.Context) error {
+    return c.String(http.StatusOK, "pong")
 }
 
 func main() {
+	e := echo.New()
+
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	e.GET("/ping", Ping)
+
+
+	e.Logger.Fatal(e.Start(":1323"))
+
 	db, err := sql.Open("postgres", fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname))
 	if err != nil {
 		log.Fatal(err)
@@ -106,11 +136,11 @@ func summaryHandler(db *sql.DB) http.HandlerFunc {
 		defer rows.Close()
 
 		type SummaryData struct {
-			NodeID      int       `json:"node_id"`
-			Interval    time.Time `json:"interval"`
-			AvgTemp     float64   `json:"avg_temp"`
-			AvgHum      float64   `json:"avg_hum"`
-			AvgSoil     float64   `json:"avg_soil"`
+			NodeID   int       `json:"node_id"`
+			Interval time.Time `json:"interval"`
+			AvgTemp  float64   `json:"avg_temp"`
+			AvgHum   float64   `json:"avg_hum"`
+			AvgSoil  float64   `json:"avg_soil"`
 		}
 
 		data := []SummaryData{}

@@ -1,0 +1,32 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Ceci est la documentation de l’API Harvest Hub.",
+        "title": "Harvest Hub API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/ping": {
+            "get": {
+                "description": "Vérifie que l’API fonctionne en renvoyant \"pong\"",
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "test"
+                ],
+                "summary": "Route de test (ping)",
+                "responses": {
+                    "200": {
+                        "description": "pong",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
