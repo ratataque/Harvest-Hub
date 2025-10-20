@@ -1,0 +1,25 @@
+[package]
+name = "harvesthub-stm32"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+panic-halt = "1.0.0"
+
+# HAL STM32F1 (v0.11 -> pas de feature `rt` ici)
+stm32f1xx-hal = { version = "0.11.0", features = ["stm32f103"] }
+
+nb = "1.1"
+fugit = "0.3"
+heapless = "0.9.1"
+humantime = "2.1"
+
+[features]
+default = []
+firmware = []
+
+[profile.release]
+lto = true
+codegen-units = 1
