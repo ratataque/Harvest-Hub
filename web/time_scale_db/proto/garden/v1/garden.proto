@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package garden.v1;
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "harvest-hub/api/gen/proto/garden/v1;gardenv1";
+// OpenAPI General API Info
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Garden API"
+    version: "1.0"
+    contact: {name: "Harvest Hub Project"}
+  }
+  schemes: [
+    HTTP,
+    HTTPS
+  ]
+  consumes: [
+    "application/json",
+    "application/proto"
+  ]
+  produces: [
+    "application/json",
+    "application/proto"
+  ]
+};
+
+// Service definition
+service GardenService {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {description: "Service for collecting and retrieving garden sensor data."};
+
+  rpc InsertSensorData(InsertSensorDataRequest) returns (InsertSensorDataResponse) {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Insert Sensor Data"
+      description: "Receives and stores a new sensor data point."
+      tags: ["Garden"]
+    };
+  }
+  rpc GetSummary(GetSummaryRequest) returns (GetSummaryResponse) {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Sensor Summary"
+      description: "Retrieves an aggregated summary of sensor data over a time period."
+      tags: ["Garden"]
+    };
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+}
+
+// Insert sensor data
+message InsertSensorDataRequest {
+  string node_id = 1;
+  double temperature = 2;
+  double humidity = 3;
+  double soil_moisture = 4;
+  int64 timestamp = 5; // Unix timestamp in milliseconds
+}
+
+message InsertSensorDataResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Get summary
+message GetSummaryRequest {
+  optional string node_id = 1; // If empty, return all nodes
+  optional int32 hours = 2; // How many hours back (default 24)
+}
+
+message GetSummaryResponse {
+  repeated SensorSummary summaries = 1;
+}
+
+message SensorSummary {
+  string node_id = 1;
+  int64 interval_start = 2; // Unix timestamp in milliseconds
+  double avg_temperature = 3;
+  double avg_humidity = 4;
+  double avg_soil_moisture = 5;
+}
+
