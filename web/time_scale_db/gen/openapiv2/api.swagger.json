@@ -1,0 +1,107 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Garden API",
+    "version": "1.0",
+    "contact": {
+      "name": "Harvest Hub Project"
+    }
+  },
+  "tags": [
+    {
+      "name": "GardenService",
+      "description": "Service for collecting and retrieving garden sensor data."
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json",
+    "application/proto"
+  ],
+  "produces": [
+    "application/json",
+    "application/proto"
+  ],
+  "paths": {},
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1GetSummaryResponse": {
+      "type": "object",
+      "properties": {
+        "summaries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SensorSummary"
+          }
+        }
+      }
+    },
+    "v1InsertSensorDataResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "v1SensorSummary": {
+      "type": "object",
+      "properties": {
+        "nodeId": {
+          "type": "string"
+        },
+        "intervalStart": {
+          "type": "string",
+          "format": "int64",
+          "title": "Unix timestamp in milliseconds"
+        },
+        "avgTemperature": {
+          "type": "number",
+          "format": "double"
+        },
+        "avgHumidity": {
+          "type": "number",
+          "format": "double"
+        },
+        "avgSoilMoisture": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    }
+  }
+}
