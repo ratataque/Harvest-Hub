@@ -8,6 +8,7 @@ package gardenv1
 
 import (
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -22,14 +23,14 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Insert sensor data
+// * Requête d'insertion d'une mesure
 type InsertSensorDataRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	NodeId        string                 `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`
-	Temperature   float64                `protobuf:"fixed64,2,opt,name=temperature,proto3" json:"temperature,omitempty"`
-	Humidity      float64                `protobuf:"fixed64,3,opt,name=humidity,proto3" json:"humidity,omitempty"`
-	SoilMoisture  float64                `protobuf:"fixed64,4,opt,name=soil_moisture,json=soilMoisture,proto3" json:"soil_moisture,omitempty"`
-	Timestamp     int64                  `protobuf:"varint,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"` // Unix timestamp in milliseconds
+	NodeId        string                 `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`                     // ID du noeud/capteur (utilisé aussi dans le path)
+	Temperature   float64                `protobuf:"fixed64,2,opt,name=temperature,proto3" json:"temperature,omitempty"`                       // °C
+	Humidity      float64                `protobuf:"fixed64,3,opt,name=humidity,proto3" json:"humidity,omitempty"`                             // %
+	SoilMoisture  float64                `protobuf:"fixed64,4,opt,name=soil_moisture,json=soilMoisture,proto3" json:"soil_moisture,omitempty"` // %
+	Timestamp     int64                  `protobuf:"varint,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`                            // Unix ms
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -151,11 +152,11 @@ func (x *InsertSensorDataResponse) GetMessage() string {
 	return ""
 }
 
-// Get summary
+// * Requête de résumé (query params si route GET sans {node_id})
 type GetSummaryRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	NodeId        *string                `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3,oneof" json:"node_id,omitempty"` // If empty, return all nodes
-	Hours         *int32                 `protobuf:"varint,2,opt,name=hours,proto3,oneof" json:"hours,omitempty"`                // How many hours back (default 24)
+	NodeId        *string                `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3,oneof" json:"node_id,omitempty"` // Si vide, résume tous les noeuds
+	Hours         *int32                 `protobuf:"varint,2,opt,name=hours,proto3,oneof" json:"hours,omitempty"`                // Fenêtre glissante en heures (defaut 24)
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -251,7 +252,7 @@ func (x *GetSummaryResponse) GetSummaries() []*SensorSummary {
 type SensorSummary struct {
 	state           protoimpl.MessageState `protogen:"open.v1"`
 	NodeId          string                 `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`
-	IntervalStart   int64                  `protobuf:"varint,2,opt,name=interval_start,json=intervalStart,proto3" json:"interval_start,omitempty"` // Unix timestamp in milliseconds
+	IntervalStart   int64                  `protobuf:"varint,2,opt,name=interval_start,json=intervalStart,proto3" json:"interval_start,omitempty"` // Unix ms
 	AvgTemperature  float64                `protobuf:"fixed64,3,opt,name=avg_temperature,json=avgTemperature,proto3" json:"avg_temperature,omitempty"`
 	AvgHumidity     float64                `protobuf:"fixed64,4,opt,name=avg_humidity,json=avgHumidity,proto3" json:"avg_humidity,omitempty"`
 	AvgSoilMoisture float64                `protobuf:"fixed64,5,opt,name=avg_soil_moisture,json=avgSoilMoisture,proto3" json:"avg_soil_moisture,omitempty"`
@@ -328,7 +329,7 @@ var File_proto_garden_v1_garden_proto protoreflect.FileDescriptor
 
 const file_proto_garden_v1_garden_proto_rawDesc = "" +
 	"\n" +
-	"\x1cproto/garden/v1/garden.proto\x12\tgarden.v1\x1a.protoc-gen-openapiv2/options/annotations.proto\"\xb3\x01\n" +
+	"\x1cproto/garden/v1/garden.proto\x12\tgarden.v1\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\xb3\x01\n" +
 	"\x17InsertSensorDataRequest\x12\x17\n" +
 	"\anode_id\x18\x01 \x01(\tR\x06nodeId\x12 \n" +
 	"\vtemperature\x18\x02 \x01(\x01R\vtemperature\x12\x1a\n" +
@@ -351,15 +352,15 @@ const file_proto_garden_v1_garden_proto_rawDesc = "" +
 	"\x0einterval_start\x18\x02 \x01(\x03R\rintervalStart\x12'\n" +
 	"\x0favg_temperature\x18\x03 \x01(\x01R\x0eavgTemperature\x12!\n" +
 	"\favg_humidity\x18\x04 \x01(\x01R\vavgHumidity\x12*\n" +
-	"\x11avg_soil_moisture\x18\x05 \x01(\x01R\x0favgSoilMoisture2\xb0\x03\n" +
-	"\rGardenService\x12\xaa\x01\n" +
-	"\x10InsertSensorData\x12\".garden.v1.InsertSensorDataRequest\x1a#.garden.v1.InsertSensorDataResponse\"M\x92AJ\n" +
-	"\x06Garden\x12\x12Insert Sensor Data\x1a,Receives and stores a new sensor data point.\x12\xb1\x01\n" +
+	"\x11avg_soil_moisture\x18\x05 \x01(\x01R\x0favgSoilMoisture2\xf2\x03\n" +
+	"\rGardenService\x12\xe7\x01\n" +
+	"\x10InsertSensorData\x12\".garden.v1.InsertSensorDataRequest\x1a#.garden.v1.InsertSensorDataResponse\"\x89\x01\x92AY\n" +
+	"\x06Garden\x12 InsertSensorData (GardenService)\x1a-Méthode RPC : GardenService.InsertSensorData\x82\xd3\xe4\x93\x02':\x01*\"\"/v1/gardens/{node_id}/measurements\x12\xb6\x01\n" +
 	"\n" +
-	"GetSummary\x12\x1c.garden.v1.GetSummaryRequest\x1a\x1d.garden.v1.GetSummaryResponse\"f\x92A`\n" +
-	"\x06Garden\x12\x12Get Sensor Summary\x1aBRetrieves an aggregated summary of sensor data over a time period.\x90\x02\x01\x1a>\x92A;\x129Service for collecting and retrieving garden sensor data.B\xa9\x01\x92Ax\x12(\n" +
+	"GetSummary\x12\x1c.garden.v1.GetSummaryRequest\x1a\x1d.garden.v1.GetSummaryResponse\"k\x92AM\n" +
+	"\x06Garden\x12\x1aGetSummary (GardenService)\x1a'Méthode RPC : GardenService.GetSummary\x82\xd3\xe4\x93\x02\x15\x12\x13/v1/gardens/summary\x1a>\x92A;\x129Service for collecting and retrieving garden sensor data.B\xec\x01\x92A\xba\x01\x12j\n" +
 	"\n" +
-	"Garden API\"\x15\n" +
+	"Garden API\x12@API pour collecter et consulter les données capteurs du jardin.\"\x15\n" +
 	"\x13Harvest Hub Project2\x031.0*\x02\x01\x022\x10application/json2\x11application/proto:\x10application/json:\x11application/protoZ,harvest-hub/api/gen/proto/garden/v1;gardenv1b\x06proto3"
 
 var (

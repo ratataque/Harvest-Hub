@@ -2,6 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Garden API",
+    "description": "API pour collecter et consulter les données capteurs du jardin.",
     "version": "1.0",
     "contact": {
       "name": "Harvest Hub Project"
@@ -25,8 +26,117 @@
     "application/json",
     "application/proto"
   ],
-  "paths": {},
+  "paths": {
+    "/v1/gardens/summary": {
+      "get": {
+        "summary": "GetSummary (GardenService)",
+        "description": "Méthode RPC : GardenService.GetSummary",
+        "operationId": "GardenService_GetSummary",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetSummaryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "nodeId",
+            "description": "Si vide, résume tous les noeuds",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "hours",
+            "description": "Fenêtre glissante en heures (defaut 24)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Garden"
+        ]
+      }
+    },
+    "/v1/gardens/{nodeId}/measurements": {
+      "post": {
+        "summary": "InsertSensorData (GardenService)",
+        "description": "Méthode RPC : GardenService.InsertSensorData",
+        "operationId": "GardenService_InsertSensorData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1InsertSensorDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "nodeId",
+            "description": "ID du noeud/capteur (utilisé aussi dans le path)",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GardenServiceInsertSensorDataBody"
+            }
+          }
+        ],
+        "tags": [
+          "Garden"
+        ]
+      }
+    }
+  },
   "definitions": {
+    "GardenServiceInsertSensorDataBody": {
+      "type": "object",
+      "properties": {
+        "temperature": {
+          "type": "number",
+          "format": "double",
+          "title": "°C"
+        },
+        "humidity": {
+          "type": "number",
+          "format": "double",
+          "title": "%"
+        },
+        "soilMoisture": {
+          "type": "number",
+          "format": "double",
+          "title": "%"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "int64",
+          "title": "Unix ms"
+        }
+      },
+      "title": "* Requête d'insertion d'une mesure"
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -87,7 +197,7 @@
         "intervalStart": {
           "type": "string",
           "format": "int64",
-          "title": "Unix timestamp in milliseconds"
+          "title": "Unix ms"
         },
         "avgTemperature": {
           "type": "number",
