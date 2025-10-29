@@ -43,7 +43,9 @@ const (
 
 // GardenServiceClient is a client for the garden.v1.GardenService service.
 type GardenServiceClient interface {
+	// * Insère une nouvelle mesure capteur
 	InsertSensorData(context.Context, *connect.Request[v1.InsertSensorDataRequest]) (*connect.Response[v1.InsertSensorDataResponse], error)
+	// * Récupère un résumé agrégé sur une fenêtre de temps
 	GetSummary(context.Context, *connect.Request[v1.GetSummaryRequest]) (*connect.Response[v1.GetSummaryResponse], error)
 }
 
@@ -68,7 +70,6 @@ func NewGardenServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 			httpClient,
 			baseURL+GardenServiceGetSummaryProcedure,
 			connect.WithSchema(gardenServiceMethods.ByName("GetSummary")),
-			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -92,7 +93,9 @@ func (c *gardenServiceClient) GetSummary(ctx context.Context, req *connect.Reque
 
 // GardenServiceHandler is an implementation of the garden.v1.GardenService service.
 type GardenServiceHandler interface {
+	// * Insère une nouvelle mesure capteur
 	InsertSensorData(context.Context, *connect.Request[v1.InsertSensorDataRequest]) (*connect.Response[v1.InsertSensorDataResponse], error)
+	// * Récupère un résumé agrégé sur une fenêtre de temps
 	GetSummary(context.Context, *connect.Request[v1.GetSummaryRequest]) (*connect.Response[v1.GetSummaryResponse], error)
 }
 
@@ -113,7 +116,6 @@ func NewGardenServiceHandler(svc GardenServiceHandler, opts ...connect.HandlerOp
 		GardenServiceGetSummaryProcedure,
 		svc.GetSummary,
 		connect.WithSchema(gardenServiceMethods.ByName("GetSummary")),
-		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/garden.v1.GardenService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
