@@ -27,8 +27,8 @@
     "application/proto"
   ],
   "paths": {
-    "/v1/gardens/summary": {
-      "get": {
+    "/garden.v1.GardenService/GetSummary": {
+      "post": {
         "summary": "GetSummary (GardenService)",
         "description": "Méthode RPC : GardenService.GetSummary",
         "operationId": "GardenService_GetSummary",
@@ -68,7 +68,7 @@
         ]
       }
     },
-    "/v1/gardens/{nodeId}/measurements": {
+    "/garden.v1.GardenService/InsertSensorData": {
       "post": {
         "summary": "InsertSensorData (GardenService)",
         "description": "Méthode RPC : GardenService.InsertSensorData",
@@ -89,18 +89,11 @@
         },
         "parameters": [
           {
-            "name": "nodeId",
-            "description": "ID du noeud/capteur (utilisé aussi dans le path)",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/GardenServiceInsertSensorDataBody"
+              "$ref": "#/definitions/v1InsertSensorDataRequest"
             }
           }
         ],
@@ -111,32 +104,6 @@
     }
   },
   "definitions": {
-    "GardenServiceInsertSensorDataBody": {
-      "type": "object",
-      "properties": {
-        "temperature": {
-          "type": "number",
-          "format": "double",
-          "title": "°C"
-        },
-        "humidity": {
-          "type": "number",
-          "format": "double",
-          "title": "%"
-        },
-        "soilMoisture": {
-          "type": "number",
-          "format": "double",
-          "title": "%"
-        },
-        "timestamp": {
-          "type": "string",
-          "format": "int64",
-          "title": "Unix ms"
-        }
-      },
-      "title": "* Requête d'insertion d'une mesure"
-    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -176,6 +143,36 @@
           }
         }
       }
+    },
+    "v1InsertSensorDataRequest": {
+      "type": "object",
+      "properties": {
+        "nodeId": {
+          "type": "string",
+          "title": "ID du noeud/capteur (utilisé aussi dans le path)"
+        },
+        "temperature": {
+          "type": "number",
+          "format": "double",
+          "title": "°C"
+        },
+        "humidity": {
+          "type": "number",
+          "format": "double",
+          "title": "%"
+        },
+        "soilMoisture": {
+          "type": "number",
+          "format": "double",
+          "title": "%"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "int64",
+          "title": "Unix ms"
+        }
+      },
+      "title": "* Requête d'insertion d'une mesure"
     },
     "v1InsertSensorDataResponse": {
       "type": "object",

@@ -352,13 +352,13 @@ const file_proto_garden_v1_garden_proto_rawDesc = "" +
 	"\x0einterval_start\x18\x02 \x01(\x03R\rintervalStart\x12'\n" +
 	"\x0favg_temperature\x18\x03 \x01(\x01R\x0eavgTemperature\x12!\n" +
 	"\favg_humidity\x18\x04 \x01(\x01R\vavgHumidity\x12*\n" +
-	"\x11avg_soil_moisture\x18\x05 \x01(\x01R\x0favgSoilMoisture2\xf2\x03\n" +
-	"\rGardenService\x12\xe7\x01\n" +
-	"\x10InsertSensorData\x12\".garden.v1.InsertSensorDataRequest\x1a#.garden.v1.InsertSensorDataResponse\"\x89\x01\x92AY\n" +
-	"\x06Garden\x12 InsertSensorData (GardenService)\x1a-Méthode RPC : GardenService.InsertSensorData\x82\xd3\xe4\x93\x02':\x01*\"\"/v1/gardens/{node_id}/measurements\x12\xb6\x01\n" +
+	"\x11avg_soil_moisture\x18\x05 \x01(\x01R\x0favgSoilMoisture2\x89\x04\n" +
+	"\rGardenService\x12\xee\x01\n" +
+	"\x10InsertSensorData\x12\".garden.v1.InsertSensorDataRequest\x1a#.garden.v1.InsertSensorDataResponse\"\x90\x01\x92AY\n" +
+	"\x06Garden\x12 InsertSensorData (GardenService)\x1a-Méthode RPC : GardenService.InsertSensorData\x82\xd3\xe4\x93\x02.:\x01*\")/garden.v1.GardenService/InsertSensorData\x12\xc6\x01\n" +
 	"\n" +
-	"GetSummary\x12\x1c.garden.v1.GetSummaryRequest\x1a\x1d.garden.v1.GetSummaryResponse\"k\x92AM\n" +
-	"\x06Garden\x12\x1aGetSummary (GardenService)\x1a'Méthode RPC : GardenService.GetSummary\x82\xd3\xe4\x93\x02\x15\x12\x13/v1/gardens/summary\x1a>\x92A;\x129Service for collecting and retrieving garden sensor data.B\xec\x01\x92A\xba\x01\x12j\n" +
+	"GetSummary\x12\x1c.garden.v1.GetSummaryRequest\x1a\x1d.garden.v1.GetSummaryResponse\"{\x92AM\n" +
+	"\x06Garden\x12\x1aGetSummary (GardenService)\x1a'Méthode RPC : GardenService.GetSummary\x82\xd3\xe4\x93\x02%\"#/garden.v1.GardenService/GetSummary\x1a>\x92A;\x129Service for collecting and retrieving garden sensor data.B\xec\x01\x92A\xba\x01\x12j\n" +
 	"\n" +
 	"Garden API\x12@API pour collecter et consulter les données capteurs du jardin.\"\x15\n" +
 	"\x13Harvest Hub Project2\x031.0*\x02\x01\x022\x10application/json2\x11application/proto:\x10application/json:\x11application/protoZ,harvest-hub/api/gen/proto/garden/v1;gardenv1b\x06proto3"
