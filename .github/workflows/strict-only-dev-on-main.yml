@@ -1,0 +1,17 @@
+name: "⛔ Only the dev branch can PR on main"
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+    types: [edited, opened, synchronize, reopened]
+    
+jobs:
+  main-dev-pr:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Only the dev branch can be merged on the main !
+      if: >
+        github.head_ref.startsWith('candidate')
+      run: exit 1
