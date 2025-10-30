@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package garden.v1;
+
+// IMPORTS nécessaires
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "harvest-hub/api/gen/proto/garden/v1;gardenv1";
+// OpenAPI General API Info
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Garden API"
+    version: "1.0"
+    contact: {name: "Harvest Hub Project"}
+    description: "API pour collecter et consulter les données capteurs du jardin."
+  }
+  schemes: [
+    HTTP,
+    HTTPS
+  ]
+  consumes: [
+    "application/json",
+    "application/proto"
+  ]
+  produces: [
+    "application/json",
+    "application/proto"
+  ]
+};
+
+// ====== Service ======
+service GardenService {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {description: "Service for collecting and retrieving garden sensor data."};
+
+  /** Insère une nouvelle mesure capteur */
+  rpc InsertSensorData(InsertSensorDataRequest) returns (InsertSensorDataResponse) {
+    option (google.api.http) = {
+      post: "/garden.v1.GardenService/InsertSensorData"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "InsertSensorData (GardenService)"
+      description: "Méthode RPC : GardenService.InsertSensorData"
+      tags: ["Garden"]
+    };
+  }
+
+  /** Récupère un résumé agrégé sur une fenêtre de temps */
+  rpc GetSummary(GetSummaryRequest) returns (GetSummaryResponse) {
+    option (google.api.http) = {post: "/garden.v1.GardenService/GetSummary"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "GetSummary (GardenService)"
+      description: "Méthode RPC : GardenService.GetSummary"
+      tags: ["Garden"]
+    };
+  }
+}
+
+// ====== Messages ======
+/** Requête d'insertion d'une mesure */
+message InsertSensorDataRequest {
+  string node_id = 1; // ID du noeud/capteur (utilisé aussi dans le path)
+  double temperature = 2; // °C
+  double humidity = 3; // %
+  double soil_moisture = 4; // %
+  int64 timestamp = 5; // Unix ms
+}
+
+message InsertSensorDataResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+/** Requête de résumé (query params si route GET sans {node_id}) */
+message GetSummaryRequest {
+  optional string node_id = 1; // Si vide, résume tous les noeuds
+  optional int32 hours = 2; // Fenêtre glissante en heures (defaut 24)
+}
+
+message GetSummaryResponse {
+  repeated SensorSummary summaries = 1;
+}
+
+message SensorSummary {
+  string node_id = 1;
+  int64 interval_start = 2; // Unix ms
+  double avg_temperature = 3;
+  double avg_humidity = 4;
+  double avg_soil_moisture = 5;
+}

@@ -1,0 +1,214 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Garden API",
+    "description": "API pour collecter et consulter les données capteurs du jardin.",
+    "version": "1.0",
+    "contact": {
+      "name": "Harvest Hub Project"
+    }
+  },
+  "tags": [
+    {
+      "name": "GardenService",
+      "description": "Service for collecting and retrieving garden sensor data."
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json",
+    "application/proto"
+  ],
+  "produces": [
+    "application/json",
+    "application/proto"
+  ],
+  "paths": {
+    "/garden.v1.GardenService/GetSummary": {
+      "post": {
+        "summary": "GetSummary (GardenService)",
+        "description": "Méthode RPC : GardenService.GetSummary",
+        "operationId": "GardenService_GetSummary",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetSummaryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "nodeId",
+            "description": "Si vide, résume tous les noeuds",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "hours",
+            "description": "Fenêtre glissante en heures (defaut 24)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Garden"
+        ]
+      }
+    },
+    "/garden.v1.GardenService/InsertSensorData": {
+      "post": {
+        "summary": "InsertSensorData (GardenService)",
+        "description": "Méthode RPC : GardenService.InsertSensorData",
+        "operationId": "GardenService_InsertSensorData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1InsertSensorDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1InsertSensorDataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Garden"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1GetSummaryResponse": {
+      "type": "object",
+      "properties": {
+        "summaries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SensorSummary"
+          }
+        }
+      }
+    },
+    "v1InsertSensorDataRequest": {
+      "type": "object",
+      "properties": {
+        "nodeId": {
+          "type": "string",
+          "title": "ID du noeud/capteur (utilisé aussi dans le path)"
+        },
+        "temperature": {
+          "type": "number",
+          "format": "double",
+          "title": "°C"
+        },
+        "humidity": {
+          "type": "number",
+          "format": "double",
+          "title": "%"
+        },
+        "soilMoisture": {
+          "type": "number",
+          "format": "double",
+          "title": "%"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "int64",
+          "title": "Unix ms"
+        }
+      },
+      "title": "* Requête d'insertion d'une mesure"
+    },
+    "v1InsertSensorDataResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "v1SensorSummary": {
+      "type": "object",
+      "properties": {
+        "nodeId": {
+          "type": "string"
+        },
+        "intervalStart": {
+          "type": "string",
+          "format": "int64",
+          "title": "Unix ms"
+        },
+        "avgTemperature": {
+          "type": "number",
+          "format": "double"
+        },
+        "avgHumidity": {
+          "type": "number",
+          "format": "double"
+        },
+        "avgSoilMoisture": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    }
+  }
+}
